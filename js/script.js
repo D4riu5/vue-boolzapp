@@ -5,6 +5,7 @@
     data() {
       return {
         activeContact: null,
+        newInput: '',
         userProfile: {
           name: 'Darius',
           avatar: '_me',
@@ -197,16 +198,20 @@
       setActiveContact(index) {
         this.activeContact = index;
       },
+      addNewMessage(index){
+        this.contacts[index].messages.push({date: 'placeholder date', message: this.newInput, status: 'sent'});
+        this.newInput = '';
+      }
     },
     mounted() {
+
       // event on ESC button to reset activeContact, and go back to homepage
       window.addEventListener('keydown', (e) => {
         if (e.keyCode === 27) {
             this.activeContact = null;
         }
     });
-    console.log(`the component is now mounted.`)
-  
+    console.log(`the component is now mounted.`);
   }
   }).mount('#app')
 

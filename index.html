@@ -128,7 +128,9 @@
                     <!-- chat footer -->
                     <footer class="p-2 d-flex align-items-center">
                         <i id="emoji" class="fa-regular fa-face-smile mx-4 p-1 fs-5"></i>
-                        <input id="sendMessage" type="text" placeholder="Type a message" class="form-control">
+                        <form @submit.prevent="addNewMessage(activeContact)"  class="flex-grow-1">
+                            <input v-model="newInput" id="sendMessage" required pattern=".*\S.*" title="Type a message" type="text" placeholder="Type a message" class="form-control">
+                        </form>
                         <i id="voiceRecord" class="fa-solid fa-microphone mx-4 p-1 fs-5"></i>
                     </footer>
                     <!-- chat footer -->
