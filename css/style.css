@@ -1,0 +1,194 @@
+/* --------Custom rules-------- */
+/* ------BG-------- */
+.my_custom-bg{
+    background: rgb(52,51,51);
+    background: linear-gradient(0deg, rgba(52,51,51,1) 6%, rgba(0,0,0,0.9884686296393558) 84%, rgb(110, 167, 52) 84%); 
+    height: 100vh;
+}
+
+#noChat{
+    background-color: #f0f2f5;
+}
+
+/* ---------remove bootstrap input glow */
+ .form-control:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 0.1rem rgba(44, 201, 80, 0.25);
+} 
+
+/* --------CUSTOM MEASUREMENTS/HEGHTS/WIDTHS-------- */
+.my_nopadding{
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+
+#app{
+    height: 95vh;
+    width: 80%;
+}
+
+ /* ---------Nav/contacts wrapper--------- */
+#nav{
+    height: 95vh;
+}
+
+#userProfileSettings{
+    height: 55px;
+    background-color: rgb(225, 222, 222);
+}
+
+#notifications{
+    height: 60px;
+    background: rgb(164, 248, 91);
+}
+
+#searchBar{
+    height: 50px;
+}
+
+#myContacts{
+    /*  100% - #searchBar - #notifications - #userProfileSettings  */
+    height: calc(100% - 50px - 60px - 55px);
+    overflow-y: scroll;
+}
+
+#notificationsCircle{
+    width: 25px; 
+    aspect-ratio: 1/1;
+}
+
+/* ------CHAT WRAPPER------- */
+#chatContainer,
+#noChat,
+.chat{
+   height: 95vh;
+}
+
+.chat header{
+    height: 55px;
+    background-color: rgb(225, 222, 222);
+}
+
+.chat main{
+    /*      100% - chatHeader - chatFooter */
+    height: calc(100% - 55px - 55px);
+    background-image: url("../img/mine.jpg");
+}
+
+.chat footer{
+    height: 55px;
+    background-color: #ede6e1;
+}
+
+/* TEMPORARY */
+#noChat{
+    display: none!important;
+}
+
+.chat{
+    /* display: none!important; */
+}
+/* TEMPORARY */
+
+
+/* --------IMAGES-------- */
+img:not(.special){
+    width: 35px;
+    aspect-ratio: 1/1;
+}
+
+#myContacts img{
+    width: 40px;
+}
+
+.special{
+    max-width: 400px;
+    margin-top: 15%;
+}
+
+
+/* --------TEXT-------- */
+* :not(h1,h2,h3,h4,h5,h6){
+    font-size: 0.8rem;
+}
+
+/* --------removing bottom border on last contact------ */
+.border-bottom:last-child {
+    border-bottom: none !important;
+}
+
+/* --------ON HOVER-------- */
+.contact-card:hover:not(.active){
+    background-color: rgb(237, 237, 237);
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+#status,
+#openNewChat,
+#settings,
+#searchInChat,
+#attachment,
+#contactSettings,
+#emoji,
+#voiceRecord{
+    cursor: pointer;
+}
+
+
+/* --------Js classes manipulation-------- */
+.active{
+    background-color: rgb(225, 222, 222);
+    cursor: pointer;
+}
+
+
+
+/* ---------MESSAGES SECTION--------- */
+.messagesContainer{
+    padding: 0 70px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    align-content: flex-start;
+    
+
+}
+
+.message{
+    max-width:45%;
+    min-width: 25%;
+    padding:8px;
+    margin-bottom:10px;
+    word-wrap: break-word;
+    word-break: normal;
+    border-radius: 10px;
+}
+
+.sent{
+    background-color:#d5f9ba;
+    align-self: flex-end;
+}
+
+.received{
+    background-color:white;
+    align-self: flex-start;
+}
+
+
+
+  
+/* --------DEBUG-------- */
+.my_bordered{
+    border: 1px solid red;
+
+}
+
+.my_bordered2{
+    border: 1px solid blue;
+}
+
+.my_bordered3{
+    border: 1px solid rgb(23, 255, 23);
+}
+ 

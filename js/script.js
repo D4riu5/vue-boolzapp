@@ -5,6 +5,7 @@
     data() {
       return {
         contacts: [
+          // Michele
           {
           name: 'Michele',
           avatar: '_1',
@@ -27,6 +28,7 @@
           }
           ],
           },
+          // Fabio
           {
           name: 'Fabio',
           avatar: '_2',
@@ -49,6 +51,7 @@
           }
           ],
           },
+          // Samuele
           {
           name: 'Samuele',
           avatar: '_3',
@@ -71,6 +74,7 @@
           }
           ],
           },
+          // Alessandro B
           {
           name: 'Alessandro B.',
           avatar: '_4',
@@ -88,6 +92,7 @@
           }
           ],
           },
+          // Alessandro L
           {
           name: 'Alessandro L.',
           avatar: '_5',
@@ -105,6 +110,7 @@
           }
           ],
           },
+          // Claudia
           {
           name: 'Claudia',
           avatar: '_6',
@@ -127,6 +133,7 @@
           }
           ],
           },
+          // Federico
           {
           name: 'Federico',
           avatar: '_7',
@@ -144,6 +151,7 @@
           }
           ],
           },
+          // Davide
           {
           name: 'Davide',
           avatar: '_8',
