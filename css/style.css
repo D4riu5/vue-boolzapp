@@ -83,12 +83,12 @@
 
 /* TEMPORARY */
 #noChat{
-    display: none!important;
-}
-
-.chat{
     /* display: none!important; */
 }
+
+/* .chat{
+    display: none!important;
+} */
 /* TEMPORARY */
 
 
@@ -144,15 +144,12 @@ img:not(.special){
 }
 
 
-
 /* ---------MESSAGES SECTION--------- */
 .messagesContainer{
     padding: 0 70px;
     overflow-y: scroll;
     overflow-x: hidden;
     align-content: flex-start;
-    
-
 }
 
 .message{

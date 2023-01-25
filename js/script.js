@@ -4,12 +4,18 @@
   createApp({
     data() {
       return {
+        activeContact: null,
+        userProfile: {
+          name: 'Darius',
+          avatar: '_me',
+        },
         contacts: [
           // Michele
           {
           name: 'Michele',
           avatar: '_1',
           visible: true,
+          active: false,
           messages: [
           {
           date: '10/01/2020 15:30:55',
@@ -33,6 +39,7 @@
           name: 'Fabio',
           avatar: '_2',
           visible: true,
+          active: false,
           messages: [
           {
           date: '20/03/2020 16:30:00',
@@ -56,6 +63,7 @@
           name: 'Samuele',
           avatar: '_3',
           visible: true,
+          active: false,
           messages: [
           {
           date: '28/03/2020 10:10:40',
@@ -79,6 +87,7 @@
           name: 'Alessandro B.',
           avatar: '_4',
           visible: true,
+          active: false,
           messages: [
           {
           date: '10/01/2020 15:30:55',
@@ -97,6 +106,7 @@
           name: 'Alessandro L.',
           avatar: '_5',
           visible: true,
+          active: false,
           messages: [
           {
           date: '10/01/2020 15:30:55',
@@ -115,6 +125,7 @@
           name: 'Claudia',
           avatar: '_6',
           visible: true,
+          active: false,
           messages: [
           {
           date: '10/01/2020 15:30:55',
@@ -138,6 +149,7 @@
           name: 'Federico',
           avatar: '_7',
           visible: true,
+          active: false,
           messages: [
           {
           date: '10/01/2020 15:30:55',
@@ -156,6 +168,7 @@
           name: 'Davide',
           avatar: '_8',
           visible: true,
+          active: false,
           messages: [
           {
           date: '10/01/2020 15:30:55',
@@ -178,10 +191,22 @@
       }
     },
     methods:{
-
+      toggleActive(contact) {
+        contact.active = !contact.active
+      },
+      setActiveContact(index) {
+        this.activeContact = index;
+      },
     },
     mounted() {
+      // event on ESC button to reset activeContact, and go back to homepage
+      window.addEventListener('keydown', (e) => {
+        if (e.keyCode === 27) {
+            this.activeContact = null;
+        }
+    });
     console.log(`the component is now mounted.`)
+  
   }
   }).mount('#app')
 

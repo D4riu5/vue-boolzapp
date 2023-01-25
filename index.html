@@ -24,8 +24,10 @@
 <!---------- UserProfile Start---------->
                 <div id="userProfileSettings" class="d-flex align-items-center justify-content-between p-2">
                     <div id="profileSettingsLeft" class="d-flex align-items-center">
-                        <img class="rounded-circle me-2" src="img/avatar_1.jpg" alt="">
-                        <h6 class="my_nopadding">name</h6>
+                        <img class="rounded-circle me-2" :src="'img/avatar' + userProfile.avatar + '.jpg'" alt="">
+                        <h6 class="my_nopadding">
+                            {{userProfile.name}}
+                        </h6>
                     </div>
                     <div id="profileSettingsRight" class="d-flex align-items-center text-light-emphasis">
                         <i id="status" class="fa-solid fa-circle-notch p-1"></i>
@@ -60,57 +62,18 @@
 
 <!---------- contacts Start---------->
                 <div id="myContacts" class="">
-                    <div class="p-2 d-flex border-bottom border-top border-dark-subtle contact-card active">
-                        <img class="rounded-circle my-2" src="img/avatar_1.jpg" alt="">
+                    <div v-for="(contact, index) in contacts" v-on:click="setActiveContact(index)" :class="(activeContact === index ? 'active' : '')" class="p-2 d-flex border-bottom border-top border-dark-subtle contact-card" >
+                        <img class="rounded-circle my-2" :src="'img/avatar' + contact.avatar + '.jpg'" :alt="contact.name">
                         <div class="px-2 flex-grow-1 overflow-hidden">
-                            <h5 class="my_nopadding">name</h5>
+                            <h5 class="my_nopadding">
+                                {{ contact.name}}
+                            </h5>
                             <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="placeholder" class="d-inline-block text-truncate w-100 text-secondary" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Id iste voluptatum asperiores suscipit iusto vero voluptatem repellendus eaque, animi in.</span>
                         </div>
                         <div class="text-end flex-shrink-0 mt-1 text-secondary" style="font-size: 0.6rem;"> 
                             yesterday
                         </div>
                     </div>
-                    <div class="p-2 d-flex border-bottom border-top border-dark-subtle contact-card">
-                        <img class="rounded-circle my-2" src="img/avatar_1.jpg" alt="">
-                        <div class="px-2 flex-grow-1 overflow-hidden">
-                            <h5 class="my_nopadding">name</h5>
-                            <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="placeholder" class="d-inline-block text-truncate w-100 text-secondary" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Id iste voluptatum asperiores suscipit iusto vero voluptatem repellendus eaque, animi in.</span>
-                        </div>
-                        <div class="text-end flex-shrink-0 mt-1 text-secondary" style="font-size: 0.6rem;"> 
-                            yesterday
-                        </div>
-                    </div>
-                    <div class="p-2 d-flex border-bottom border-top border-dark-subtle contact-card">
-                        <img class="rounded-circle my-2" src="img/avatar_1.jpg" alt="">
-                        <div class="px-2 flex-grow-1 overflow-hidden">
-                            <h5 class="my_nopadding">name</h5>
-                            <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="placeholder" class="d-inline-block text-truncate w-100 text-secondary" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Id iste voluptatum asperiores suscipit iusto vero voluptatem repellendus eaque, animi in.</span>
-                        </div>
-                        <div class="text-end flex-shrink-0 mt-1 text-secondary" style="font-size: 0.6rem;"> 
-                            yesterday
-                        </div>
-                    </div>
-                    <div class="p-2 d-flex border-bottom border-top border-dark-subtle contact-card">
-                        <img class="rounded-circle my-2" src="img/avatar_1.jpg" alt="">
-                        <div class="px-2 flex-grow-1 overflow-hidden">
-                            <h5 class="my_nopadding">name</h5>
-                            <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="placeholder" class="d-inline-block text-truncate w-100 text-secondary" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Id iste voluptatum asperiores suscipit iusto vero voluptatem repellendus eaque, animi in.</span>
-                        </div>
-                        <div class="text-end flex-shrink-0 mt-1 text-secondary" style="font-size: 0.6rem;"> 
-                            yesterday
-                        </div>
-                    </div>
-                    <div class="p-2 d-flex border-bottom border-top border-dark-subtle contact-card">
-                        <img class="rounded-circle my-2" src="img/avatar_1.jpg" alt="">
-                        <div class="px-2 flex-grow-1 overflow-hidden">
-                            <h5 class="my_nopadding">name</h5>
-                            <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="placeholder" class="d-inline-block text-truncate w-100 text-secondary" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Id iste voluptatum asperiores suscipit iusto vero voluptatem repellendus eaque, animi in.</span>
-                        </div>
-                        <div class="text-end flex-shrink-0 mt-1 text-secondary" style="font-size: 0.6rem;"> 
-                            yesterday
-                        </div>
-                    </div>
-        
                 </div>
 <!---------- contacts End---------->
             </div>
@@ -118,7 +81,7 @@
  <!----------Chat container  Start---------->
             <div id="chatContainer" class="my_nopadding col-8">
                 <!-- "homepage-chat" Start-->
-                <div id="noChat" class="d-flex flex-column align-items-center justify-content-around">
+                <div v-if="activeContact == null" id="noChat" class="d-flex flex-column align-items-center justify-content-around">
                     <img class="special" src="img/backdrop_light.png" alt="backdrop_light">
                     <div class="text-center">
                         <h2>BoolZapp Web</h2>
@@ -129,15 +92,18 @@
                 <!-- "homepage-chat" End-->
 
                 <!-- real chat Start -->
-                <div class="chat">
+                <div v-else class="chat">
+                    <!-- chat header -->
                     <header class="d-flex justify-content-between p-2">
                         <div class="d-flex alig">
                             <div>
-                                <img class="rounded-circle " src="img/avatar_1.jpg" alt="">
+                                <img class="rounded-circle " :src="'img/avatar' + contacts[activeContact].avatar + '.jpg'"  :alt="contacts[activeContact].name">
                             </div>
                             <div class="px-2 flex-grow-1 overflow-hidden">
-                                <h6 class="my_nopadding">name</h6>
-                                <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="placeholder" class="d-inline-block w-100 text-secondary" style="font-size: 0.7rem;">Last login at placeholder</span>
+                                <h6 class="my_nopadding">
+                                    {{ contacts[activeContact].name }}
+                                </h6>
+                                <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="placeholder" class="d-inline-block w-100 text-secondary" style="font-size: 0.7rem;">Last login placeholder</span>
                             </div>
                         </div>
                         <div id="profileSettingsRight" class="d-flex align-items-center text-light-emphasis">
@@ -146,35 +112,26 @@
                             <i id="contactSettings" class="fa-solid fa-ellipsis-vertical p-1"></i>
                         </div>
                     </header>
+                    <!-- chat header -->
 
+                    <!-- chat main body -->
                     <main class="d-flex flex-column py-3 messagesContainer">
-                        <div class="message sent d-flex flex-column">
-                            Sent message 1
-                            <span class="text-secondary align-self-end mt-1" style="font-size: 0.58rem;"> 20/12/2022</span>
-                        </div>
-                        <div class="message received d-flex flex-column">
-                            Received message 2
-                            <span class="text-secondary align-self-end mt-1" style="font-size: 0.58rem;"> yesterday</span>
-                        </div>
-                        <div class="message received d-flex flex-column">
-                            Received message 3
-                            <span class="text-secondary align-self-end mt-1" style="font-size: 0.58rem;"> 16:45</span>
-                        </div>
-                        <div class="message received d-flex flex-column">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ea facere doloremque neque iusto, esse modi.
-                            <span class="text-secondary align-self-end mt-1" style="font-size: 0.58rem;"> 19:50</span>
-                        </div>
-                        <div class="message sent d-flex flex-column">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus a earum fugit. Animi saepe architecto obcaecati praesentium cumque tempore excepturi, minima quia, recusandae perferdis eligei nulla ab deleniti quibusdam inventore nisi laboriosam error earum ad aut deserunt, perspiciatis ex expedita?
-                            <span class="text-secondary align-self-end mt-1" style="font-size: 0.58rem;"> now</span>
+                        <div v-for="(msg, index) in contacts[activeContact].messages" :class="(msg.status == 'sent'? 'message sent d-flex flex-column' : 'message received d-flex flex-column')">
+                            {{msg.message}}
+                            <span class="text-secondary align-self-end mt-1" style="font-size: 0.58rem;">
+                                {{ msg.date }} change this
+                            </span>
                         </div>
                     </main>
+                    <!-- chat main body -->
 
+                    <!-- chat footer -->
                     <footer class="p-2 d-flex align-items-center">
                         <i id="emoji" class="fa-regular fa-face-smile mx-4 p-1 fs-5"></i>
                         <input id="sendMessage" type="text" placeholder="Type a message" class="form-control">
                         <i id="voiceRecord" class="fa-solid fa-microphone mx-4 p-1 fs-5"></i>
                     </footer>
+                    <!-- chat footer -->
                 </div>
                 <!-- real chat End -->
             </div>
