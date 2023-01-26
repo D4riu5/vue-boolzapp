@@ -54,6 +54,10 @@
     overflow-y: scroll;
 }
 
+.my_lastMessageDate{
+    min-width: 60px;
+}
+
 #notificationsCircle{
     width: 25px; 
     aspect-ratio: 1/1;
@@ -158,12 +162,18 @@ img:not(.special){
 
 .message{
     max-width:45%;
-    min-width: 25%;
-    padding:8px;
+    min-width: 10%;
+    padding: 15px 30px;
     margin-bottom:10px;
     word-wrap: break-word;
     word-break: normal;
     border-radius: 10px;
+}
+
+.dateSpan{
+    position: absolute;
+    bottom: 3%;
+    right: 2%;
 }
 
 .sent{
@@ -179,6 +189,7 @@ img:not(.special){
 /* dropDown menu */
 #dropDown{
 position: absolute;
+top: 0;
 right: 1%;
 padding: 3px;
 display: none;

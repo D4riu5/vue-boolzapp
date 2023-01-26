@@ -4,6 +4,7 @@
   createApp({
     data() {
       return {
+        time: '',
         searchBarInput: '',
         activeContact: null,
         newInput: '',
@@ -55,7 +56,7 @@
           },
           {
           date: '20/03/2020 16:35:00',
-          message: 'Mi piacerebbe ma devo andare a fare la spesa.',
+          message: 'Mi piacerebbe ma devo andare a fare la spesa. ---------Prova longText per vedere il messaggio nella tooltip on mousehover under contact last messages---------',
           status: 'sent'
           }
           ],
@@ -192,25 +193,40 @@
           ]
       }
     },
+    computed:{
+      lastMessage() {
+        return this.contacts[this.activeContact].messages[this.contacts[this.activeContact].messages.length - 1];
+       },
+    },
     methods:{
       toggleActive(contact) {
         contact.active = !contact.active
       },
       setActiveContact(index) {
         this.activeContact = index;
-        // with this the searchBarInput resets, but the contacts dont update
         this.searchBarInput = '';
-        
+        this.findContacts();
+        this.getLocalTime();
       },
       addNewMessage(index){
-        this.contacts[index].messages.push({date: 'placeholder date', message: this.newInput, status: 'sent'});
+        let messageIndexes = [];
+        this.contacts[index].messages.push({date: 'now', message: this.newInput, status: 'sent'});
+        messageIndexes.push(this.contacts[index].messages.length -1);
         this.newInput = '';
 
+        // reply
         setTimeout(() => {
           console.log("Delayed for 1 second.");
-          this.contacts[index].messages.push({date: 'placeholder date', message: this.getRandomMessage(), status: 'received'});
+          this.contacts[index].messages.push({date: 'now', message: this.getRandomMessage(), status: 'received'});
+          messageIndexes.push(this.contacts[index].messages.length -1);
         }, 1000)
         
+        // update date time from now to current time -1 minute
+        setTimeout(() => {
+          messageIndexes.forEach((i) => {
+            this.contacts[index].messages[i].date = this.getLocalTime();
+          });
+        }, 60000)
       },
       findContacts(){
         this.contacts.forEach(contact => {
@@ -244,7 +260,12 @@
           "Va bene..",
           "Siamo tutti connessi! 🌎",
           "Hai bisogno di parlare?",
-          "Siamo qui per sostenerci a vicenda! 😭😭😭"
+          "Siamo qui per sostenerci a vicenda! 😭😭😭",
+          "Il lavoro di squadra 🤝 è fondamentale per ottenere successo in ogni progetto, lavoriamo insieme con impegno e determinazione.",
+          "La generosità 🤝 e la gentilezza 💕 sono le chiavi per costruire un mondo migliore, facciamo la nostra parte!🌟",
+          "Mi dispiace, non posso partecipare alla riunione di oggi perché ho un impegno improrogabile 🤕",
+          "Cosa ne dici di uscire a fare una passeggiata nel parco questo fine settimana? ☀️🍁",
+          "No"
           ]
         return messages[Math.floor(Math.random() * messages.length)];
       },
@@ -257,7 +278,32 @@
         } else{
           this.contacts[activeChat].messages[msgIndex].status = 'sent'
         }
-      }
+      },
+      getLocalTime(){
+
+        let date = new Date();
+        // removing 1 minute from minutes
+        date.setMinutes(date.getMinutes() - 1);
+
+        return date.toLocaleString('it-IT', {
+          // day: '2-digit',
+          // month: '2-digit',
+          // year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          // second: '2-digit'
+        });
+      },
+      changeTimeFormat(){
+        this.contacts.forEach((contact) => {
+          contact.messages.forEach((message) => {
+           message.date = message.date.substring(0, message.date.indexOf(' '));
+          });
+      });
+      },
+    },
+    created() {
+      this.changeTimeFormat();
     },
     mounted() {
       // event on ESC button to reset activeContact, and go back to homepage
@@ -270,4 +316,3 @@
     console.log(`the component is now mounted.`);
   }
   }).mount('#app')
-

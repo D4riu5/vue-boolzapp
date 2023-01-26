@@ -69,10 +69,13 @@
                                 <h5 class="my_nopadding">
                                     {{ contact.name}}
                                 </h5>
-                                <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="placeholder" class="d-inline-block text-truncate w-100 text-secondary" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Id iste voluptatum asperiores suscipit iusto vero voluptatem repellendus eaque, animi in.</span>
+                                <span data-bs-toggle="tooltip" data-bs-placement="bottom" :title="this.contacts[index].messages[this.contacts[index].messages.length -1].message" class="w-100 d-inline-block text-truncate  text-secondary" > 
+                                    <i v-if="this.contacts[index].messages[this.contacts[index].messages.length -1].status == 'sent'" class="fa-solid fa-check"></i>
+                                    {{ this.contacts[index].messages[this.contacts[index].messages.length -1].message }}
+                                </span>
                             </div>
-                            <div class="text-end flex-shrink-0 mt-1 text-secondary" style="font-size: 0.6rem;"> 
-                                yesterday
+                            <div class="my_lastMessageDate text-end flex-shrink-0 mt-1 text-secondary" style="font-size: 0.6rem;"> 
+                                {{ this.contacts[index].messages[this.contacts[index].messages.length -1].date === 'now' ? 'now' :(this.contacts[index].messages[this.contacts[index].messages.length -1].date.length < 6? 'Today at ' + this.contacts[index].messages[this.contacts[index].messages.length -1].date : this.contacts[index].messages[this.contacts[index].messages.length -1].date) }}
                             </div>
                         </div>
                     </template>
@@ -105,7 +108,7 @@
                                 <h6 class="my_nopadding">
                                     {{ contacts[activeContact].name }}
                                 </h6>
-                                <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="placeholder" class="d-inline-block w-100 text-secondary" style="font-size: 0.7rem;">Last login placeholder</span>
+                                <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="placeholder" class="d-inline-block w-100 text-secondary" style="font-size: 0.7rem;">Last login {{ lastMessage.date === 'now' ? 'now' : (lastMessage.date.length < 6 ? 'Today at ' + lastMessage.date : lastMessage.date) }}</span>
                             </div>
                         </div>
                         <div id="profileSettingsRight" class="d-flex align-items-center text-light-emphasis">
@@ -129,7 +132,7 @@
                             'italics': msg.message == 'This message was deleted'
                         }">
                             {{msg.message}}
-                            <span class="text-secondary align-self-end mt-1" style="font-size: 0.58rem;">
+                            <span class="dateSpan text-body-tertiary mt-1 pe-1" style="font-size: 0.58rem;">
                                 {{ msg.date }}
                             </span>
                             <!-- Drop BUTTON and MENU -->
@@ -157,7 +160,6 @@
  <!----------Chat container  End---------->
         </div>
     </div>
-
 
 
 <!---------------------- SCRIPTS ---------------------->
