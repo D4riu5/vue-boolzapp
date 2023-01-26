@@ -2,7 +2,7 @@
 /* ------BG-------- */
 .my_custom-bg{
     background: rgb(52,51,51);
-    background: linear-gradient(0deg, rgba(52,51,51,1) 6%, rgba(0,0,0,0.9884686296393558) 84%, rgb(110, 167, 52) 84%); 
+    background: linear-gradient(0deg, rgba(52,51,51,1) 6%, rgba(0,0,0,0.9884686296393558) 84%, rgb(253, 150, 32) 84%); 
     height: 100vh;
 }
 
@@ -12,7 +12,7 @@
 
 /* scrollbar style */
 /* body{
-    scrollbar-color: #d9722d rgb(253, 150, 32);
+    scrollbar-color: #de3838 rgb(206, 99, 72);
     scrollbar-width: thin;
 } */
 
@@ -47,7 +47,7 @@
 
 #notifications{
     height: 60px;
-    background: rgb(164, 248, 91);
+    background: rgb(252, 136, 58);
 }
 
 #searchBar{
@@ -172,7 +172,7 @@ img:not(.special){
 }
 
 .sent{
-    background-color:#d5f9ba;
+    background-color:rgb(250, 181, 103);;
     align-self: flex-end;
 }
 
