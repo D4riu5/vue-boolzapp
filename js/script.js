@@ -197,9 +197,10 @@
         contact.active = !contact.active
       },
       setActiveContact(index) {
-        // with this the searchBarInput resets, but the contacts dont update
-        // this.searchBarInput = '';
         this.activeContact = index;
+        // with this the searchBarInput resets, but the contacts dont update
+        this.searchBarInput = '';
+        
       },
       addNewMessage(index){
         this.contacts[index].messages.push({date: 'placeholder date', message: this.newInput, status: 'sent'});
@@ -250,7 +251,7 @@
       removeMessage(activeChat, msgIndex){
         this.contacts[activeChat].messages[msgIndex].message = "This message was deleted";
         this.contacts[activeChat].messages[msgIndex].date = '';
-        
+
         if (this.contacts[activeChat].messages[msgIndex].status == 'received') {
           this.contacts[activeChat].messages[msgIndex].status = 'received'
         } else{
