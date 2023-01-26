@@ -310,7 +310,9 @@
       this.changeTimeFormat();
     },
     updated(){
-      this.scrollUp();
+      if (this.myLastMessage !== null && this.myLastMessage !== undefined) {
+        this.scrollUp();
+      };
     },
     mounted() {
       // event on ESC button to reset activeContact, and go back to homepage
