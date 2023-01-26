@@ -4,6 +4,7 @@
   createApp({
     data() {
       return {
+        randomMessage: null,
         activeContact: null,
         newInput: '',
         userProfile: {
@@ -201,10 +202,41 @@
       addNewMessage(index){
         this.contacts[index].messages.push({date: 'placeholder date', message: this.newInput, status: 'sent'});
         this.newInput = '';
+        
+        setTimeout(() => {
+          console.log("Delayed for 1 second.");
+          this.contacts[index].messages.push({date: 'placeholder date', message: this.getRandomMessage(), status: 'recieved'});
+        }, 1000)
+        
+      },
+      getRandomMessage() {
+        messages = [
+          "Sono così felice oggi 😊",
+          "Come va la tua giornata?",
+          "Credi in te stesso! 👍",
+          "Ok.",
+          "Siamo tutti unici e speciali ❤️",
+          "Scusa, non ho capito.",
+          "Siamo in grado di fare grandi cose! 🌟",
+          "Hai intenzione di uscire stasera?",
+          "Non posso rispondere adesso, mi dispiace.",
+          "Hai bisogno di aiuto?",
+          "La positività è contagiosa! 😁",
+          "Qual è il tuo piatto preferito?",
+          "Siamo capaci di superare qualsiasi ostacolo! 💪",
+          "Hai programmi per il fine settimana?",
+          "La gratitudine è la chiave della felicità! 🙏",
+          "Come mai mi chiedi questo?",
+          "La vita è un regalo, godiamola! 🎁",
+          "Va bene..",
+          "Siamo tutti connessi! 🌎",
+          "Hai bisogno di parlare?",
+          "Siamo qui per sostenerci a vicenda! 😭😭😭"
+          ]
+        return messages[Math.floor(Math.random() * messages.length)];
       }
     },
     mounted() {
-
       // event on ESC button to reset activeContact, and go back to homepage
       window.addEventListener('keydown', (e) => {
         if (e.keyCode === 27) {
