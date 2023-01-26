@@ -213,7 +213,7 @@
         this.contacts[index].messages.push({date: 'now', message: this.newInput, status: 'sent'});
         messageIndexes.push(this.contacts[index].messages.length -1);
         this.newInput = '';
-
+        
         // reply
         setTimeout(() => {
           console.log("Delayed for 1 second.");
@@ -237,6 +237,10 @@
           }
           
         });
+      },
+      scrollUp() {
+        let myLastMessage = this.$refs.messagesContainer;
+        myLastMessage.scrollTop = myLastMessage.scrollHeight;
       },
       getRandomMessage() {
         messages = [
@@ -304,6 +308,9 @@
     },
     created() {
       this.changeTimeFormat();
+    },
+    updated(){
+      this.scrollUp();
     },
     mounted() {
       // event on ESC button to reset activeContact, and go back to homepage

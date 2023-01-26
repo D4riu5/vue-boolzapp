@@ -18,8 +18,8 @@
 
 /* ---------remove bootstrap input glow */
  .form-control:focus {
-    border-color: #28a745;
-    box-shadow: 0 0 0 0.1rem rgba(44, 201, 80, 0.25);
+    border-color: #f3ac2a;
+    box-shadow: 0 0 0 0.1rem rgba(244, 135, 11, 0.936);
 } 
 
 /* --------CUSTOM MEASUREMENTS/HEGHTS/WIDTHS-------- */
@@ -135,7 +135,6 @@ img:not(.special){
 #voiceRecord{
     cursor: pointer;
 }
-
 
 /* --------Js classes manipulation-------- */
 .active{

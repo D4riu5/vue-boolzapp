@@ -238,6 +238,10 @@
           
         });
       },
+      scrollUp() {
+        let myLastMessage = this.$refs.messagesContainer;
+        myLastMessage.scrollTop = myLastMessage.scrollHeight;
+      },
       getRandomMessage() {
         messages = [
           "Sono così felice oggi 😊",
@@ -304,6 +308,9 @@
     },
     created() {
       this.changeTimeFormat();
+    },
+    updated(){
+      this.scrollUp();
     },
     mounted() {
       // event on ESC button to reset activeContact, and go back to homepage
