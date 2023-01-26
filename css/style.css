@@ -76,6 +76,11 @@
    height: 95vh;
 }
 
+#noChat{
+    border-width: 10px !important;
+    border-color: rgb(164, 248, 91) !important;
+}
+
 .chat header{
     height: 55px;
     background-color: rgb(225, 222, 222);
@@ -114,7 +119,7 @@ img:not(.special){
 }
 
 /* --------removing bottom border on last contact------ */
-.border-bottom:last-child {
+.border-bottom:last-child:not(#noChat) {
     border-bottom: none !important;
 }
 

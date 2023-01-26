@@ -35,27 +35,64 @@
     box-shadow: 0px 0px 15px -3px rgba(0,0,0,0.77);
 }
 
- /* ---------Nav/contacts wrapper--------- */
-#nav{
+ 
+/* ---------LEFT SIDE of app WRAPPER----------- */
+#nav,
+#userSettings{
     height: 95vh;
 }
+/* ---------User settings wrapper--------- */
+#userSettings header{
+    height: 110px;
+    background-color: #ed7b29;
+}
 
-#userProfileSettings{
+#userSettings #goHome{
+    cursor: pointer;
+}
+
+#userSettings main{
+    height: calc(100% - 110px);
+    overflow: auto;
+}
+
+#userSettings main .my_top,
+#userSettings main .my_bot{
+    background-color: #f0f2f5;
+}
+
+#userSettings main .my_mid{
+    color: rgb(225, 116, 44);
+}
+
+#userSettings .my_Name{
+    border: none;
+    background-color: transparent;
+    font-size: 20px;
+    color: black;
+}
+
+#userSettings #edit-tip{
+    bottom: 5%;
+}
+
+/* ---------Nav/contacts wrapper--------- */
+#nav #navHeader{
     height: 55px;
     background-color: rgb(225, 222, 222);
 }
 
-#notifications{
+#nav #notifications{
     height: 60px;
     background: rgb(252, 136, 58);
 }
 
-#searchBar{
+#nav #searchBar{
     height: 50px;
 }
 
-#myContacts{
-    /*  100% - #searchBar - #notifications - #userProfileSettings  */
+#nav #myContacts{
+    /*  100% - #searchBar - #notifications - #navHeader  */
     height: calc(100% - 50px - 60px - 55px);
     overflow-y: scroll;
 }
@@ -76,6 +113,11 @@
    height: 95vh;
 }
 
+#noChat{
+    border-width: 10px !important;
+    border-color: rgb(252, 136, 58) !important;
+}
+
 .chat header{
     height: 55px;
     background-color: rgb(225, 222, 222);
@@ -93,13 +135,24 @@
 }
 
 /* --------IMAGES-------- */
-img:not(.special){
+img:not(.special):not(#userSettings img):not(#nav #navHeader img){
     width: 35px;
     aspect-ratio: 1/1;
 }
 
+#nav #navHeader img{
+    width: 40px;
+    aspect-ratio: 1/1;
+    cursor: pointer;
+}
+
 #myContacts img{
     width: 40px;
+}
+
+#userSettings img{
+    width: 200px;
+    aspect-ratio: 1/1;
 }
 
 .special{
@@ -114,7 +167,7 @@ img:not(.special){
 }
 
 /* --------removing bottom border on last contact------ */
-.border-bottom:last-child {
+.border-bottom:last-child:not(#noChat) {
     border-bottom: none !important;
 }
 
@@ -132,7 +185,8 @@ img:not(.special){
 #attachment,
 #contactSettings,
 #emoji,
-#voiceRecord{
+#voiceRecord,
+#edit{
     cursor: pointer;
 }
 

@@ -4,9 +4,12 @@
   createApp({
     data() {
       return {
+        userDefaultName: 'Darius',
+        isEditing: false,
         time: '',
         searchBarInput: '',
         activeContact: null,
+        activeSettings: false,
         newInput: '',
         userProfile: {
           name: 'Darius',
@@ -305,6 +308,23 @@
           });
       });
       },
+      editUserName() {
+        this.isEditing = true;
+        this.$refs.changeName.removeAttribute("disabled");
+        this.$refs.changeName.focus();
+      },
+      disableInput(){
+        this.$refs.changeName.setAttribute("disabled", true);
+        this.$refs.changeName.blur();
+        this.userProfile.name = this.userDefaultName;
+        this.isEditing = false;
+      },
+      saveNewName(){
+        this.userDefaultName = this.userProfile.name;
+        this.$refs.changeName.blur();
+        this.$refs.changeName.setAttribute("disabled", true);
+        this.isEditing = false;
+      }
     },
     created() {
       this.changeTimeFormat();
@@ -318,9 +338,17 @@
       // event on ESC button to reset activeContact, and go back to homepage
       window.addEventListener('keydown', (e) => {
         if (e.keyCode === 27) {
+          if (this.isEditing == false) {
             this.activeContact = null;
             this.searchBarInput = '';
             this.findContacts();
+            this.activeSettings = false;
+            
+          } else{
+            this.userProfile.name = this.userDefaultName;
+            this.disableInput();
+          }
+          
         }
     });
   
