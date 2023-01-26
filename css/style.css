@@ -143,8 +143,11 @@ img:not(.special){
     cursor: pointer;
 }
 
+.italics{
+    font-style: italic;
+}
 
-/* ---------MESSAGES SECTION--------- */
+/* ------MESSAGES SECTION------ */
 .messagesContainer{
     padding: 0 70px;
     overflow-y: scroll;
@@ -172,7 +175,18 @@ img:not(.special){
     align-self: flex-start;
 }
 
+/* dropDown menu */
+#dropDown{
+position: absolute;
+right: 1%;
+padding: 3px;
+display: none;
+cursor: pointer;
+}
 
+.message:hover #dropDown{
+    display: block;
+}
 
   
 /* --------DEBUG-------- */

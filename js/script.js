@@ -207,7 +207,7 @@
 
         setTimeout(() => {
           console.log("Delayed for 1 second.");
-          this.contacts[index].messages.push({date: 'placeholder date', message: this.getRandomMessage(), status: 'recieved'});
+          this.contacts[index].messages.push({date: 'placeholder date', message: this.getRandomMessage(), status: 'received'});
         }, 1000)
         
       },
@@ -246,6 +246,16 @@
           "Siamo qui per sostenerci a vicenda! 😭😭😭"
           ]
         return messages[Math.floor(Math.random() * messages.length)];
+      },
+      removeMessage(activeChat, msgIndex){
+        this.contacts[activeChat].messages[msgIndex].message = "This message was deleted";
+        this.contacts[activeChat].messages[msgIndex].date = '';
+        
+        if (this.contacts[activeChat].messages[msgIndex].status == 'received') {
+          this.contacts[activeChat].messages[msgIndex].status = 'received'
+        } else{
+          this.contacts[activeChat].messages[msgIndex].status = 'sent'
+        }
       }
     },
     mounted() {
