@@ -4,6 +4,7 @@
   createApp({
     data() {
       return {
+        onHomePage: true,
         userDefaultName: 'Darius',
         isEditing: false,
         time: '',
@@ -210,6 +211,7 @@
         this.searchBarInput = '';
         this.findContacts();
         this.getLocalTime();
+        this.onHomePage = false;
       },
       addNewMessage(index){
         let messageIndexes = [];
@@ -278,7 +280,6 @@
       },
       removeMessage(activeChat, msgIndex){
         this.contacts[activeChat].messages[msgIndex].message = "This message was deleted";
-        this.contacts[activeChat].messages[msgIndex].date = '';
 
         if (this.contacts[activeChat].messages[msgIndex].status == 'received') {
           this.contacts[activeChat].messages[msgIndex].status = 'received'
@@ -330,7 +331,7 @@
       this.changeTimeFormat();
     },
     updated(){
-      if (this.myLastMessage !== null && this.myLastMessage !== undefined) {
+      if (this.onHomePage == false) {
         this.scrollUp();
       };
     },
@@ -343,6 +344,7 @@
             this.searchBarInput = '';
             this.findContacts();
             this.activeSettings = false;
+            this.onHomePage = true;
             
           } else{
             this.userProfile.name = this.userDefaultName;

@@ -4,6 +4,7 @@
   createApp({
     data() {
       return {
+        onHomePage: true,
         time: '',
         searchBarInput: '',
         activeContact: null,
@@ -200,13 +201,14 @@
     },
     methods:{
       toggleActive(contact) {
-        contact.active = !contact.active
+        contact.active = !contact.active;
       },
       setActiveContact(index) {
         this.activeContact = index;
         this.searchBarInput = '';
         this.findContacts();
         this.getLocalTime();
+        this.onHomePage = false;
       },
       addNewMessage(index){
         let messageIndexes = [];
@@ -275,7 +277,6 @@
       },
       removeMessage(activeChat, msgIndex){
         this.contacts[activeChat].messages[msgIndex].message = "This message was deleted";
-        this.contacts[activeChat].messages[msgIndex].date = '';
 
         if (this.contacts[activeChat].messages[msgIndex].status == 'received') {
           this.contacts[activeChat].messages[msgIndex].status = 'received'
@@ -284,7 +285,6 @@
         }
       },
       getLocalTime(){
-
         let date = new Date();
         // removing 1 minute from minutes
         date.setMinutes(date.getMinutes() - 1);
@@ -310,7 +310,7 @@
       this.changeTimeFormat();
     },
     updated(){
-      if (this.myLastMessage !== null && this.myLastMessage !== undefined) {
+      if (this.onHomePage == false) {
         this.scrollUp();
       };
       },
@@ -321,6 +321,7 @@
             this.activeContact = null;
             this.searchBarInput = '';
             this.findContacts();
+            this.onHomePage = true;
         }
     });
   
