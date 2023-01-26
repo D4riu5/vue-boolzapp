@@ -4,6 +4,7 @@
   createApp({
     data() {
       return {
+        emojiOpen: false,
         onHomePage: true,
         userDefaultName: 'Darius',
         isEditing: false,
@@ -60,7 +61,7 @@
           },
           {
           date: '20/03/2020 16:35:00',
-          message: 'Mi piacerebbe ma devo andare a fare la spesa. ---------Prova longText per vedere il messaggio nella tooltip on mousehover under contact last messages---------',
+          message: 'Mi piacerebbe ma devo andare a fare la spesa.',
           status: 'sent'
           }
           ],
@@ -194,7 +195,10 @@
           }
           ],
           }
-          ]
+          ],
+        emojis: [
+          "😀","😁","😂","😃","😄","😅","😆","😇","😈","😉","😊","😋","😌","😍","😎","😏","😐","😑","😒","😓","😔","😢","👍","👎","💪","🙏","🚶‍♀️","🐶","🌺","🍔","🌞","🍋","⭐","🚗","🎵","🌹","❤️"
+        ]
       }
     },
     computed:{
@@ -212,6 +216,7 @@
         this.findContacts();
         this.getLocalTime();
         this.onHomePage = false;
+        this.closeEmojiCanvas()
       },
       addNewMessage(index){
         let messageIndexes = [];
@@ -325,6 +330,26 @@
         this.$refs.changeName.blur();
         this.$refs.changeName.setAttribute("disabled", true);
         this.isEditing = false;
+      },
+      openEmojiCanvas(){
+        if (this.emojiOpen == true) {
+          this.closeEmojiCanvas();
+        } else {
+          setTimeout(() => {
+            this.scrollUp();
+          }, 1)
+          this.emojiOpen = true;
+        };
+      },
+      closeEmojiCanvas(){
+        setTimeout(() => {
+          this.scrollUp();
+        }, 1)
+        this.emojiOpen = false;
+      },
+      addEmoji(singleEmoji){
+        this.newInput += singleEmoji
+        this.$refs.msgInput.focus();
       }
     },
     created() {
@@ -339,14 +364,17 @@
       // event on ESC button to reset activeContact, and go back to homepage
       window.addEventListener('keydown', (e) => {
         if (e.keyCode === 27) {
-          if (this.isEditing == false) {
+          if (this.isEditing == false && !this.emojiOpen) {
             this.activeContact = null;
             this.searchBarInput = '';
             this.findContacts();
             this.activeSettings = false;
             this.onHomePage = true;
+
+          } else if (this.emojiOpen) {
+            this.closeEmojiCanvas();
             
-          } else{
+          } else {
             this.userProfile.name = this.userDefaultName;
             this.disableInput();
           }

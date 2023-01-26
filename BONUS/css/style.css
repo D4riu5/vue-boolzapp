@@ -125,7 +125,7 @@
 
 .chat main{
     /*      100% - chatHeader - chatFooter */
-    height: calc(100% - 55px - 55px);
+    /* height: calc(100% - 55px - 55px); */
     background-image: url("../img/mine.jpg");
 }
 
@@ -186,7 +186,8 @@ img:not(.special):not(#userSettings img):not(#nav #navHeader img){
 #contactSettings,
 #emoji,
 #voiceRecord,
-#edit{
+#edit,
+#closeEmojis{
     cursor: pointer;
 }
 
@@ -250,7 +251,24 @@ img:not(.special):not(#userSettings img):not(#nav #navHeader img){
 
   
 /* OFFCANVAS */
+.emojiContainer{
+    height: 200px;
+    background-color: rgb(225, 222, 222);
+}
 
+.emoji-wrapper {
+    overflow: auto;
+}
+  
+.emoji {
+    display: inline-block;
+    margin-right: 10px;
+    transform: scale(2);
+    padding: 5px;
+    margin: 15px;
+    cursor: pointer;
+    font-family: "Segoe UI Emoji", "Segoe UI Symbol";
+}
 
 /* OFFCANVAS */
 
@@ -269,4 +287,12 @@ img:not(.special):not(#userSettings img):not(#nav #navHeader img){
 .my_bordered3{
     border: 1px solid rgb(23, 255, 23);
 }
- 
+
+
+.v-enter-active{
+  transition: opacity 0.7s ease;
+}
+
+.v-enter-from{
+  opacity: 0;
+}
