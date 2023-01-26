@@ -55,25 +55,27 @@
                         <label for="inputSearchBar" class="input-group-text px-3">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </label>
-                        <input id="inputSearchBar" type="search" placeholder="Search or start new chat" class="form-control">
+                        <input id="inputSearchBar" v-model="searchBarInput" type="search" placeholder="Search or start new chat" @input="findContacts()" class="form-control">
                     </div>
                 </div>
 <!---------- searchBar End---------->
 
 <!---------- contacts Start---------->
                 <div id="myContacts" class="">
-                    <div v-for="(contact, index) in contacts" v-on:click="setActiveContact(index)" :class="(activeContact === index ? 'active' : '')" class="p-2 d-flex border-bottom border-top border-dark-subtle contact-card" >
-                        <img class="rounded-circle my-2" :src="'img/avatar' + contact.avatar + '.jpg'" :alt="contact.name">
-                        <div class="px-2 flex-grow-1 overflow-hidden">
-                            <h5 class="my_nopadding">
-                                {{ contact.name}}
-                            </h5>
-                            <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="placeholder" class="d-inline-block text-truncate w-100 text-secondary" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Id iste voluptatum asperiores suscipit iusto vero voluptatem repellendus eaque, animi in.</span>
+                    <template v-for="(contact, index) in contacts">
+                        <div v-if="contact.visible" v-on:click="setActiveContact(index)" :class="(activeContact === index ? 'active' : '')" class="p-2 d-flex border-bottom border-top border-dark-subtle contact-card">
+                            <img class="rounded-circle my-2" :src="'img/avatar' + contact.avatar + '.jpg'" :alt="contact.name">
+                            <div class="px-2 flex-grow-1 overflow-hidden">
+                                <h5 class="my_nopadding">
+                                    {{ contact.name}}
+                                </h5>
+                                <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="placeholder" class="d-inline-block text-truncate w-100 text-secondary" >Lorem ipsum dolor sit amet consectetur adipisicing elit. Id iste voluptatum asperiores suscipit iusto vero voluptatem repellendus eaque, animi in.</span>
+                            </div>
+                            <div class="text-end flex-shrink-0 mt-1 text-secondary" style="font-size: 0.6rem;"> 
+                                yesterday
+                            </div>
                         </div>
-                        <div class="text-end flex-shrink-0 mt-1 text-secondary" style="font-size: 0.6rem;"> 
-                            yesterday
-                        </div>
-                    </div>
+                    </template>
                 </div>
 <!---------- contacts End---------->
             </div>

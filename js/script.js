@@ -4,7 +4,7 @@
   createApp({
     data() {
       return {
-        randomMessage: null,
+        searchBarInput: '',
         activeContact: null,
         newInput: '',
         userProfile: {
@@ -197,17 +197,29 @@
         contact.active = !contact.active
       },
       setActiveContact(index) {
+        // with this the searchBarInput resets, but the contacts dont update
+        // this.searchBarInput = '';
         this.activeContact = index;
       },
       addNewMessage(index){
         this.contacts[index].messages.push({date: 'placeholder date', message: this.newInput, status: 'sent'});
         this.newInput = '';
-        
+
         setTimeout(() => {
           console.log("Delayed for 1 second.");
           this.contacts[index].messages.push({date: 'placeholder date', message: this.getRandomMessage(), status: 'recieved'});
         }, 1000)
         
+      },
+      findContacts(){
+        this.contacts.forEach(contact => {
+          if (contact.name.toLowerCase().includes(this.searchBarInput.toLowerCase())) {
+            contact.visible = true;
+          } else {
+            contact.visible = false;
+          }
+          
+        });
       },
       getRandomMessage() {
         messages = [
@@ -241,6 +253,7 @@
       window.addEventListener('keydown', (e) => {
         if (e.keyCode === 27) {
             this.activeContact = null;
+            this.searchBarInput = '';
         }
     });
     console.log(`the component is now mounted.`);
