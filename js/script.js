@@ -320,6 +320,7 @@
         if (e.keyCode === 27) {
             this.activeContact = null;
             this.searchBarInput = '';
+            this.findContacts();
         }
     });
   
