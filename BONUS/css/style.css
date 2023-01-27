@@ -1,3 +1,4 @@
+
 /* --------Custom rules-------- */
 /* ------BG-------- */
 .my_custom-bg{
@@ -28,7 +29,7 @@
     margin: 0 !important;
 }
 
-#app{
+#app > div{
     height: 95vh;
     width: 80%;
     -webkit-box-shadow: 0px 0px 15px -3px rgba(0,0,0,0.77); 
@@ -40,6 +41,7 @@
 #nav,
 #userSettings{
     height: 95vh;
+
 }
 /* ---------User settings wrapper--------- */
 #userSettings header{
@@ -70,6 +72,7 @@
     background-color: transparent;
     font-size: 20px;
     color: black;
+    max-width: 70%;
 }
 
 #userSettings #edit-tip{
@@ -138,12 +141,14 @@
 img:not(.special):not(#userSettings img):not(#nav #navHeader img){
     width: 35px;
     aspect-ratio: 1/1;
+    object-fit: cover;
 }
 
 #nav #navHeader img{
     width: 40px;
     aspect-ratio: 1/1;
     cursor: pointer;
+    object-fit: cover;
 }
 
 #myContacts img{
@@ -153,13 +158,13 @@ img:not(.special):not(#userSettings img):not(#nav #navHeader img){
 #userSettings img{
     width: 200px;
     aspect-ratio: 1/1;
+    object-fit: cover;
 }
 
 .special{
     max-width: 400px;
     margin-top: 15%;
 }
-
 
 /* --------TEXT-------- */
 * :not(h1,h2,h3,h4,h5,h6){
@@ -172,13 +177,41 @@ img:not(.special):not(#userSettings img):not(#nav #navHeader img){
 }
 
 /* --------ON HOVER-------- */
+.contact-card{
+    transition: 0.6s;
+}
+
 .contact-card:hover:not(.active){
     background-color: rgb(237, 237, 237);
-    transition: 0.4s;
     cursor: pointer;
 }
 
-#status,
+/* ------------CHANGE PROFILE PIC HOVER----------- */
+#my_profile-picture{
+    cursor: pointer;
+}
+
+.hover-text-wrapper{
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    top: 24px;
+    border-radius: 50%;
+    z-index: -1;
+    transition: 1.5s ease-out;
+}
+
+#my_profile-picture:hover .hover-text-wrapper{
+    display: flex!important;
+    z-index: 1;
+    background-color: rgba(30, 30, 30, 0.6);
+    transition: 0.2s linear;
+}
+/* ------------CHANGE PROFILE PIC HOVER--------------- */
+/* --------ON HOVER-------- */
+
+#changeTheme,
+#changeTheme2,
 #openNewChat,
 #settings,
 #searchInChat,
@@ -269,9 +302,54 @@ img:not(.special):not(#userSettings img):not(#nav #navHeader img){
     cursor: pointer;
     font-family: "Segoe UI Emoji", "Segoe UI Symbol";
 }
-
 /* OFFCANVAS */
 
+
+
+/* dark THEME */
+.dark{
+    color: white !important;
+    background-color: #111b21!important;
+}
+/* dark THEME */
+
+
+
+
+/*----- Modal -------*/
+.modal{
+    width: 70%;
+    left: 15%;
+}
+
+.modal-body{
+    max-height: 60vh;
+}
+
+.imageSelection{
+    width: calc((100% / 4) - 55px)!important;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.selected{
+    border: solid 10px #ed7b29;
+}
+
+.my_orange-btn{
+    background-color: rgb(252, 136, 58);
+    transition: 0.5s;
+}
+
+.my_orange-btn:hover{
+    background-color: #ff6a00;
+}
+
+/* modal backdrop fix */
+.modal-backdrop {
+    z-index: -1;
+}
 
 
 /* --------DEBUG-------- */
@@ -289,10 +367,3 @@ img:not(.special):not(#userSettings img):not(#nav #navHeader img){
 }
 
 
-.v-enter-active{
-  transition: opacity 0.7s ease;
-}
-
-.v-enter-from{
-  opacity: 0;
-}

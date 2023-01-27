@@ -19,11 +19,11 @@
     </head>
     <body class="my_custom-bg relative overflow-hidden">
 
-    <div id="app" class="container bg-white mt-3 position-absolute top-0 start-50 translate-middle-x">
-        <div class="row">
-<!----------User Settings Start---------->
-            <transition>
-                <div v-show="activeSettings" id="userSettings" class="my_nopadding col-4 border-end border-dark-subtle">
+    <div id="app">
+        <div  class="container bg-white mt-3 position-absolute top-0 start-50 translate-middle-x" >
+            <div class="row" :class="{'dark' : darkTheme}">
+                <!----------User Settings Start---------->
+                <div v-if="activeSettings" id="userSettings" class="my_nopadding col-4 border-end border-dark-subtle d-flex flex-column">
                     <header class="d-flex align-items-end p-2 ps-3">
                         <div class="d-flex align-items-center">
                             <i id="goHome" @click="activeSettings = false" class="fa-solid fa-left-long fs-5 me-3 p-2"></i>
@@ -31,10 +31,57 @@
                         </div>
                     </header>
     
-                    <Main class="d-flex flex-column">
-                        <div class="my_top d-flex align-items-center justify-content-center p-4">
-                            <img :src="'img/avatar' + userProfile.avatar + '.jpg'" alt="" class="rounded-circle">
+                    <Main class="d-flex flex-column overflow-x-hidden">
+                        <div class="my_top d-flex align-items-center justify-content-center p-4 position-relative">
+                            <div id="my_profile-picture" data-bs-toggle="modal" data-bs-target="#chooseAvatar" @click="choosingAvatar = !choosingAvatar">
+                                <img :src="userProfile.avatar" alt="" class="rounded-circle">
+                                <div class="hover-text-wrapper text-white d-flex flex-column justify-content-center align-items-center">
+                                    <i class="fa-solid fa-camera fs-4 my-2"></i>
+                                    <h6 class="text-center">CHANGE <br> PROFILE PHOTO</h6>
+                                </div>
+                            </div>
+                            <!-- MODAL -->
+                            <div class="modal fade modal-xl" data-bs-backdrop="static" id="chooseAvatar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="background-color: rgb(225, 222, 222);">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">
+                                                Change your Profile picture
+                                            </h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                                            </button>
+                                        </div>
+                                        <div class="modal-body d-flex flex-wrap justify-content-center align-items-center p-5 overflow-auto">
+                                            <img v-for="(avatar, index) in avatars" class="m-4 imageSelection rounded-circle" :class="(avatar.selected === true ? 'selected' : '')" :src="avatar.picture" @click="selectNewAvatar(index)" alt="">
+                                        </div>
+                                        <div class="modal-footer d-flex justify-content-center" style="background-color: rgb(225, 222, 222);">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="choosingAvatar = !choosingAvatar, resetAvatarSelection()">
+                                                Close
+                                            </button>
+                                            <button type="button" class="btn my_orange-btn" @click="assignAvatar()" data-bs-target="#pop-up_alert" data-bs-toggle="modal">Save changes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- MODAL -->
+
+                            <!-- MODAL 2 (popup)-->
+                            <div class="modal fade" id="pop-up_alert" aria-hidden="true" aria-labelledby="exampleModalToggleLabel2" tabindex="-1">
+                                <div class="modal-dialog modal-dialog-centered">
+                                    <div class="modal-content">
+                                        <div class="modal-header" style="background-color: rgb(252, 136, 58);">
+                                            <h1 class="modal-title fs-5" id="exampleModalToggleLabel2">Success!</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-footer d-flex justify-content-center" style="background-color: rgb(225, 222, 222);">
+                                            <button class="btn px-3 my_orange-btn" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Ok</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- MODAL 2 (popup)-->
                         </div>
+
                         <div class="my_mid d-flex flex-column p-4 position-relative">
                             <span>
                                 Your Name
@@ -50,175 +97,176 @@
                         </div>
                     </Main>
                 </div>
-            </transition>
-<!----------User Settings End------------>
-
-<!----------nav Start---------->
-            <div v-show="!activeSettings" id="nav" class="my_nopadding col-4 border-end border-dark-subtle">
-<!---------- navHeader Start---------->
-                <div id="navHeader" class="d-flex align-items-center justify-content-between p-2">
-                    <div class="d-flex align-items-center">
-                        <img @click="activeSettings = true" class="rounded-circle me-2" :src="'img/avatar' + userProfile.avatar + '.jpg'" alt="">
-                        <h6 class="my_nopadding">
-                            {{userProfile.name}}
-                        </h6>
-                    </div>
-                    <div class="d-flex align-items-center text-light-emphasis dropstart">
-                        <i id="status" class="fa-solid fa-moon p-1"></i>
-                        <label data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search or start a new chat" for="inputSearchBar" id="openNewChat" class="fa-solid fa-message p-1 mx-2"></label>
-                        <i id="settings" data-bs-toggle="dropdown" class="fa-solid fa-ellipsis-vertical p-1"></i>
-
-                        <!-- settings DropDown -->
-                        <ul class="dropdown-menu my-4 ps-2">
-                            <li>
-                                <a class="dropdown-item" href="#nogo">New contact (placeholder)</a>
-                            </li>
-                            <li>
-                                <a class="dropdown-item" href="#nogo">Settings (placeholder)</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-<!---------- navHeader End---------->
-
-<!---------- Notifications "pop-up" Start---------->
-                <div id="notifications" class="d-flex align-items-center p-2 g-2">
-                    <div id="notificationsCircle" class="d-flex justify-content-center align-items-center bg-white rounded-circle">
-                        <i style="color: rgb(252, 136, 58) !important;" class="fa-solid fa-bell-slash fs-5"></i>
-                    </div>
-                    <div class="mx-2">
-                        <p class="my_nopadding">Get new messages notifications!</p>
-                        <a href="#nogo">Enable desktop notifications</a>
-                    </div>
-                </div>
-<!---------- Notifications "pop-up" End---------->
-
-<!---------- searchBar Start---------->
-                <div id="searchBar" class=" p-2 d-flex">
-                    <div class="input-group input-group-sm" style="height: 50%;">
-                        <label for="inputSearchBar" class="input-group-text px-3">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </label>
-                        <input id="inputSearchBar" v-model="searchBarInput" type="search" placeholder="Search or start new chat" @input="findContacts()" class="form-control">
-                    </div>
-                </div>
-<!---------- searchBar End---------->
-
-<!---------- contacts Start---------->
-                <div id="myContacts" class="">
-                    <template v-for="(contact, index) in contacts">
-                        <div v-if="contact.visible" v-on:click="setActiveContact(index)" :class="(activeContact === index ? 'active' : '')" class="p-2 d-flex border-bottom border-top border-dark-subtle contact-card">
-                            <img class="rounded-circle my-2" :src="'img/avatar' + contact.avatar + '.jpg'" :alt="contact.name">
-                            <div class="px-2 flex-grow-1 overflow-hidden">
-                                <h5 class="my_nopadding">
-                                    {{ contact.name}}
-                                </h5>
-                                <span data-bs-toggle="tooltip" data-bs-placement="bottom" :title="this.contacts[index].messages[this.contacts[index].messages.length -1].message" class="w-100 d-inline-block text-truncate  text-secondary" > 
-                                    <i v-if="this.contacts[index].messages[this.contacts[index].messages.length -1].status == 'sent'" class="fa-solid fa-check"></i>
-                                    {{ this.contacts[index].messages[this.contacts[index].messages.length -1].message }}
-                                </span>
-                            </div>
-                            <div class="my_lastMessageDate text-end flex-shrink-0 mt-1 text-secondary" style="font-size: 0.6rem;"> 
-                                {{ this.contacts[index].messages[this.contacts[index].messages.length -1].date === 'now' ? 'now' :(this.contacts[index].messages[this.contacts[index].messages.length -1].date.length < 6? 'Today at ' + this.contacts[index].messages[this.contacts[index].messages.length -1].date : this.contacts[index].messages[this.contacts[index].messages.length -1].date) }}
-                            </div>
+                <!----------User Settings End------------>
+                
+                <!----------nav Start---------->
+                <div v-else id="nav" class="my_nopadding col-4 border-end border-dark-subtle">
+                    <!---------- navHeader Start---------->
+                    <div id="navHeader" class="d-flex align-items-center justify-content-between p-2">
+                        <div class="d-flex align-items-center">
+                            <img @click="activeSettings = true" class="rounded-circle me-2" :src="userProfile.avatar" alt="">
+                            <h6 class="my_nopadding">
+                                {{userProfile.name}}
+                            </h6>
                         </div>
-                    </template>
-                </div>
-<!---------- contacts End---------->
-            </div>
-<!------------nav end------------>
-
- <!----------Chat container  Start---------->
-            <div id="chatContainer" class="my_nopadding col-8">
-        <!---------- "homepage-chat" Start---------->
-                <div v-if="activeContact == null" id="noChat" class="d-flex flex-column align-items-center justify-content-around border-bottom">
-                    <img class="special" src="img/backdrop_light.png" alt="backdrop_light">
-                    <div class="text-center">
-                        <h2>BoolZapp Web</h2>
-                        <p class="my-3">Send and receive messages without keeping your phone online <br> Use BoolzApp on up to 0 linked devices and phones at the same time.</p>
-                    </div>
-                    <span class="my-3"><i class="fa-solid fa-lock-open mx-1"></i> not encrypted</span>
-                </div>
-        <!---------- "homepage-chat" End---------->
-
-        <!---------- real chat Start ---------->
-                <div v-else class="chat d-flex flex-column">
-                    <!-- chat header -->
-                    <header class="d-flex justify-content-between p-2 flex-shrink-0">
-                        <div class="d-flex alig">
-                            <div>
-                                <img class="rounded-circle " :src="'img/avatar' + contacts[activeContact].avatar + '.jpg'"  :alt="contacts[activeContact].name">
-                            </div>
-                            <div class="px-2 flex-grow-1 overflow-hidden">
-                                <h6 class="my_nopadding">
-                                    {{ contacts[activeContact].name }}
-                                </h6>
-                                <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="placeholder" class="d-inline-block w-100 text-secondary" style="font-size: 0.7rem;">Last login {{ lastMessage.date === 'now' ? 'now' : (lastMessage.date.length < 6 ? 'Today at ' + lastMessage.date : lastMessage.date) }}</span>
-                            </div>
-                        </div>
-                        <div id="profileSettingsRight" class="d-flex align-items-center text-light-emphasis">
-                            <i id="searchInChat" class="fa-solid fa-magnifying-glass p-1"></i>
-                            <i id="attachment" class="fa-solid fa-paperclip mx-2 p-1"></i>
-                            <i id="contactSettings" class="fa-solid fa-ellipsis-vertical p-1"></i>
-                        </div>
-                    </header>
-                    <!-- chat header -->
-
-                    <!-- chat main body -->
-                    <main class="d-flex flex-column py-3 messagesContainer flex-grow-1" ref="messagesContainer">
-                        <div v-for="(msg, index) in contacts[activeContact].messages" class="pe-4 ps-2" 
-                        :class="{ 
-                            'message': true, 
-                            'sent': msg.status == 'sent', 
-                            'received': msg.status == 'received', 
-                            'd-flex': true, 
-                            'flex-column': true, 
-                            'position-relative': true,
-                            'italics': msg.message == 'This message was deleted'
-                        }">
-                            {{msg.message}}
-                            <span class="dateSpan text-body-tertiary mt-1 pe-1" style="font-size: 0.58rem;">
-                                {{ msg.date }}
-                            </span>
-                            <!-- Drop BUTTON and MENU -->
-                            <i id="dropDown" data-bs-toggle="dropdown" class="fa-solid fa-chevron-down"></i>
-                            <ul v-show="msg.message !== 'This message was deleted'" class="dropdown-menu">
+                        <div class="d-flex align-items-center text-light-emphasis dropstart">
+                            <i v-if="darkTheme == true" id="changeTheme2" @click="switchTheme" class="fa-solid fa-sun p-1"></i>
+                            <i v-else id="changeTheme" @click="switchTheme" class="fa-solid fa-moon p-1"></i>
+                            <label data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search or start a new chat" for="inputSearchBar" id="openNewChat" class="fa-solid fa-message p-1 mx-2"></label>
+                            <i id="settings" data-bs-toggle="dropdown" class="fa-solid fa-ellipsis-vertical p-1"></i>
+    
+                            <!-- settings DropDown -->
+                            <ul class="dropdown-menu my-4 ps-2">
                                 <li>
-                                    <a class="dropdown-item" href="#nogo">Message info (placeholder)</a>
+                                    <a class="dropdown-item" href="#nogo">New contact (placeholder)</a>
                                 </li>
                                 <li>
-                                    <a @click="removeMessage(activeContact, index)" class="dropdown-item" href="#nogo">Delete message</a>
+                                    <a class="dropdown-item" href="#nogo">Settings (placeholder)</a>
                                 </li>
                             </ul>
                         </div>
-                    </main>
-                    <!-- chat main body -->
-
-                    <!-- chat offcanvas -->
-                    <div v-if="emojiOpen"  class="emojiContainer flex-shrink-0 position-relative d-flex flex-column p-3">
-                        <h5 class="border-bottom border-dark-subtle py-2">Emoji list</h5>
-                        <i @click="closeEmojiCanvas" id="closeEmojis" class="fa-solid fa-circle-xmark fs-4 position-absolute top-0 end-0 p-3"></i>
-                        <div class="emoji-wrapper d-flex flex-wrap">
-                            <span v-for="(emoji,index) in emojis" class="emoji" @click="addEmoji(emoji)">
-                                {{emoji}}
-                            </span>
+                    </div>
+                    <!---------- navHeader End---------->
+                
+                    <!---------- Notifications "pop-up" Start---------->
+                    <div id="notifications" class="d-flex align-items-center p-2 g-2">
+                        <div id="notificationsCircle" class="d-flex justify-content-center align-items-center bg-white rounded-circle">
+                            <i style="color: rgb(252, 136, 58) !important;" class="fa-solid fa-bell-slash fs-5"></i>
+                        </div>
+                        <div class="mx-2">
+                            <p class="my_nopadding">Get new messages notifications!</p>
+                            <a href="#nogo">Enable desktop notifications</a>
                         </div>
                     </div>
-                     <!-- chat offcanvas -->
-
-                    <!-- chat footer -->
-                    <footer class="p-2 d-flex align-items-center flex-shrink-0">
-                        <i id="emoji" @click="openEmojiCanvas" class="fa-regular fa-face-smile mx-4 p-1 fs-5"></i>
-                        <form @submit.prevent="addNewMessage(activeContact)" class="flex-grow-1">
-                            <input v-model="newInput" id="sendMessage" required title="Type a message" type="text" placeholder="Type a message" class="form-control" ref="msgInput">
-                        </form>
-                        <i id="voiceRecord" class="fa-solid fa-microphone mx-4 p-1 fs-5"></i>
-                    </footer>
-                    <!-- chat footer -->
+                    <!---------- Notifications "pop-up" End---------->
+                
+                    <!---------- searchBar Start---------->
+                    <div id="searchBar" class=" p-2 d-flex">
+                        <div class="input-group input-group-sm" style="height: 50%;">
+                            <label for="inputSearchBar" class="input-group-text px-3">
+                                <i class="fa-solid fa-magnifying-glass"></i>
+                            </label>
+                            <input id="inputSearchBar" v-model="searchBarInput" type="search" placeholder="Search or start new chat" @input="findContacts()" class="form-control">
+                        </div>
+                    </div>
+                    <!---------- searchBar End---------->
+                
+                    <!---------- contacts Start---------->
+                    <div id="myContacts" class="">
+                        <template v-for="(contact, index) in contacts">
+                            <div v-if="contact.visible" v-on:click="setActiveContact(index)" :class="(activeContact === index ? 'active' : '')" class="p-2 d-flex border-bottom border-top border-dark-subtle contact-card">
+                                <img class="rounded-circle my-2" :src="'img/avatar' + contact.avatar + '.jpg'" :alt="contact.name">
+                                <div class="px-2 flex-grow-1 overflow-hidden">
+                                    <h5 class="my_nopadding">
+                                        {{ contact.name}}
+                                    </h5>
+                                    <span data-bs-toggle="tooltip" data-bs-placement="bottom" :title="this.contacts[index].messages[this.contacts[index].messages.length -1].message" class="w-100 d-inline-block text-truncate  text-secondary" > 
+                                        <i v-if="this.contacts[index].messages[this.contacts[index].messages.length -1].status == 'sent'" class="fa-solid fa-check"></i>
+                                        {{ this.contacts[index].messages[this.contacts[index].messages.length -1].message }}
+                                    </span>
+                                </div>
+                                <div class="my_lastMessageDate text-end flex-shrink-0 mt-1 text-secondary" style="font-size: 0.6rem;"> 
+                                    {{ this.contacts[index].messages[this.contacts[index].messages.length -1].date === 'now' ? 'now' :(this.contacts[index].messages[this.contacts[index].messages.length -1].date.length < 6? 'Today at ' + this.contacts[index].messages[this.contacts[index].messages.length -1].date : this.contacts[index].messages[this.contacts[index].messages.length -1].date) }}
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                    <!---------- contacts End---------->
                 </div>
-        <!---------- real chat End ---------->
+                <!------------nav end------------>
+                
+                <!----------Chat container  Start---------->
+                <div id="chatContainer" class="my_nopadding col-8">
+                    <!---------- "homepage-chat" Start---------->
+                    <div v-if="activeContact == null" id="noChat" class="d-flex flex-column align-items-center justify-content-around border-bottom">
+                        <img class="special" src="img/backdrop_light.png" alt="backdrop_light">
+                        <div class="text-center">
+                            <h2>BoolZapp Web</h2>
+                            <p class="my-3">Send and receive messages without keeping your phone online <br> Use BoolzApp on up to 0 linked devices and phones at the same time.</p>
+                        </div>
+                        <span class="my-3"><i class="fa-solid fa-lock-open mx-1"></i> not encrypted</span>
+                    </div>
+                    <!---------- "homepage-chat" End---------->
+                
+                    <!---------- real chat Start ---------->
+                    <div v-else class="chat d-flex flex-column">
+                        <!-- chat header -->
+                        <header class="d-flex justify-content-between p-2 flex-shrink-0">
+                            <div class="d-flex alig">
+                                <div>
+                                    <img class="rounded-circle " :src="'img/avatar' + contacts[activeContact].avatar + '.jpg'"  :alt="contacts[activeContact].name">
+                                </div>
+                                <div class="px-2 flex-grow-1 overflow-hidden">
+                                    <h6 class="my_nopadding">
+                                        {{ contacts[activeContact].name }}
+                                    </h6>
+                                    <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="placeholder" class="d-inline-block w-100 text-secondary" style="font-size: 0.7rem;">Last login {{ lastMessage.date === 'now' ? 'now' : (lastMessage.date.length < 6 ? 'Today at ' + lastMessage.date : lastMessage.date) }}</span>
+                                </div>
+                            </div>
+                            <div id="profileSettingsRight" class="d-flex align-items-center text-light-emphasis">
+                                <i id="searchInChat" class="fa-solid fa-magnifying-glass p-1"></i>
+                                <i id="attachment" class="fa-solid fa-paperclip mx-2 p-1"></i>
+                                <i id="contactSettings" class="fa-solid fa-ellipsis-vertical p-1"></i>
+                            </div>
+                        </header>
+                        <!-- chat header -->
+                
+                         <!-- chat main body -->
+                        <main class="d-flex flex-column py-3 messagesContainer flex-grow-1" ref="messagesContainer">
+                            <div v-for="(msg, index) in contacts[activeContact].messages" class="pe-4 ps-2" 
+                            :class="{ 
+                                'message': true, 
+                                'sent': msg.status == 'sent', 
+                                'received': msg.status == 'received', 
+                                'd-flex': true, 
+                                'flex-column': true, 
+                                'position-relative': true,
+                                'italics': msg.message == 'This message was deleted'
+                            }">
+                                {{msg.message}}
+                                <span class="dateSpan text-body-tertiary mt-1 pe-1" style="font-size: 0.58rem;">
+                                    {{ msg.date }}
+                                </span>
+                                <!-- Drop BUTTON and MENU -->
+                                <i id="dropDown" data-bs-toggle="dropdown" class="fa-solid fa-chevron-down"></i>
+                                <ul v-show="msg.message !== 'This message was deleted'" class="dropdown-menu">
+                                    <li>
+                                        <a class="dropdown-item" href="#nogo">Message info (placeholder)</a>
+                                    </li>
+                                    <li>
+                                        <a @click="removeMessage(activeContact, index)" class="dropdown-item" href="#nogo">Delete message</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </main>
+                        <!-- chat main body -->
+                
+                            <!-- chat offcanvas -->
+                        <div v-if="emojiOpen"  class="emojiContainer flex-shrink-0 position-relative d-flex flex-column p-3">
+                            <h5 class="border-bottom border-dark-subtle py-2">Emoji list</h5>
+                            <i @click="closeEmojiCanvas" id="closeEmojis" class="fa-solid fa-circle-xmark fs-4 position-absolute top-0 end-0 p-3"></i>
+                            <div class="emoji-wrapper d-flex flex-wrap">
+                                <span v-for="(emoji,index) in emojis" class="emoji" @click="addEmoji(emoji)">
+                                    {{emoji}}
+                                </span>
+                            </div>
+                        </div>
+                            <!-- chat offcanvas -->
+                
+                        <!-- chat footer -->
+                        <footer class="p-2 d-flex align-items-center flex-shrink-0">
+                            <i id="emoji" @click="openEmojiCanvas" class="fa-regular fa-face-smile mx-4 p-1 fs-5"></i>
+                            <form @submit.prevent="addNewMessage(activeContact)" class="flex-grow-1">
+                                <input v-model="newInput" id="sendMessage" required title="Type a message" type="text" placeholder="Type a message" class="form-control" ref="msgInput">
+                            </form>
+                            <i id="voiceRecord" class="fa-solid fa-microphone mx-4 p-1 fs-5"></i>
+                        </footer>
+                        <!-- chat footer -->
+                    </div>
+                    <!---------- real chat End ---------->
+                </div>
+                <!----------Chat container  End---------->
             </div>
- <!----------Chat container  End---------->
         </div>
     </div>
 
