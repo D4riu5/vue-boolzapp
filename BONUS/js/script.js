@@ -4,6 +4,10 @@
   createApp({
     data() {
       return {
+        recordingStarted: false,
+        recordingStopped: false,
+        recordings: [],
+        newMessageSent: false,
         appLoaded: false,
         choosingAvatar: false,
         activeAvatar: 0,
@@ -250,12 +254,18 @@
     computed:{
       lastMessage() {
         return this.contacts[this.activeContact].messages[this.contacts[this.activeContact].messages.length - 1];
+        
        },
+       lastLoginText(){
+
+       }
     },
     methods:{
+
       toggleActive(contact) {
         contact.active = !contact.active
       },
+
       setActiveContact(index) {
         this.activeContact = index;
         this.searchBarInput = '';
@@ -264,13 +274,23 @@
         this.onHomePage = false;
         this.closeEmojiCanvas()
       },
+
       addNewMessage(index){
         let messageIndexes = [];
-        this.contacts[index].messages.push({date: 'now', message: this.newInput, status: 'sent'});
+        this.contacts[index].messages.push({date: 'now', message: this.newInput, status: 'sent', voiceMsg: this.recordings[this.recordings.length -1]});
         messageIndexes.push(this.contacts[index].messages.length -1);
         this.newInput = '';
+        this.recordings = [];
+        this.recordingStopped = false;
+        this.recordingStarted = false;
 
-        // reply
+        // not using this now 
+        // this.newMessageSent = true;
+        // setTimeout(() => {
+        //   this.newMessageSent = false;
+        // }, 1)
+
+        // reply  
         setTimeout(() => {
           console.log("Delayed for 1 second.");
           this.contacts[index].messages.push({date: 'now', message: this.getRandomMessage(), status: 'received'});
@@ -284,6 +304,7 @@
           });
         }, 60000)
       },
+
       findContacts(){
         this.contacts.forEach(contact => {
           if (contact.name.toLowerCase().includes(this.searchBarInput.toLowerCase())) {
@@ -294,10 +315,12 @@
           
         });
       },
+
       scrollUp() {
         let myLastMessage = this.$refs.messagesContainer;
         myLastMessage.scrollTop = myLastMessage.scrollHeight;
       },
+
       getRandomMessage() {
         messages = [
           "Sono così felice oggi 😊",
@@ -329,15 +352,15 @@
           ]
         return messages[Math.floor(Math.random() * messages.length)];
       },
+
       removeMessage(activeChat, msgIndex){
         this.contacts[activeChat].messages[msgIndex].message = "This message was deleted";
-
-        if (this.contacts[activeChat].messages[msgIndex].status == 'received') {
-          this.contacts[activeChat].messages[msgIndex].status = 'received'
-        } else{
-          this.contacts[activeChat].messages[msgIndex].status = 'sent'
-        }
       },
+
+      removeVoiceMessage(activeChat, msgIndex){
+        this.contacts[activeChat].messages[msgIndex].voiceMsg = null;
+      },
+
       getLocalTime(){
 
         let date = new Date();
@@ -436,7 +459,18 @@
             }
           }
         })
-      }
+      },
+      
+      startRecording() {
+        this.mediaRecorder.start();
+        this.recordingStarted = true;
+      },
+
+      stopRecording() {
+        this.recordings.push(this.mediaRecorder.src);
+        this.recordingStopped = true;
+      },
+      
     },
     created() {
       this.changeTimeFormat();
@@ -473,11 +507,24 @@
 
           } else if (this.emojiOpen) {
             this.closeEmojiCanvas();
-
-
           } 
         }
     });
-  
+
+    // AUDIO RECORDER
+    navigator.mediaDevices.getUserMedia({ audio: true })
+    .then((stream) => {
+        this.mediaRecorder = new MediaRecorder(stream);
+        this.mediaRecorder.addEventListener('dataavailable', (e) => {
+            this.audioBlob = e.data;
+            this.audioUrl = URL.createObjectURL(this.audioBlob);
+            this.recordings.push(this.audioUrl);
+        });
+    })
+    .catch((err) => {
+        console.log('Error: ' + err);
+    });
+
+
   }
   }).mount('#app')

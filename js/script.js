@@ -194,15 +194,18 @@
           ]
       }
     },
+    
     computed:{
       lastMessage() {
         return this.contacts[this.activeContact].messages[this.contacts[this.activeContact].messages.length - 1];
        },
     },
+
     methods:{
       toggleActive(contact) {
         contact.active = !contact.active;
       },
+
       setActiveContact(index) {
         this.activeContact = index;
         this.searchBarInput = '';
@@ -210,6 +213,7 @@
         this.getLocalTime();
         this.onHomePage = false;
       },
+
       addNewMessage(index){
         let messageIndexes = [];
         this.contacts[index].messages.push({date: 'now', message: this.newInput, status: 'sent'});
@@ -230,6 +234,7 @@
           });
         }, 60000)
       },
+
       findContacts(){
         this.contacts.forEach(contact => {
           if (contact.name.toLowerCase().includes(this.searchBarInput.toLowerCase())) {
@@ -240,10 +245,12 @@
           
         });
       },
+
       scrollUp() {
         let myLastMessage = this.$refs.messagesContainer;
         myLastMessage.scrollTop = myLastMessage.scrollHeight;
       },
+
       getRandomMessage() {
         messages = [
           "Sono così felice oggi 😊",
@@ -275,15 +282,11 @@
           ]
         return messages[Math.floor(Math.random() * messages.length)];
       },
+
       removeMessage(activeChat, msgIndex){
         this.contacts[activeChat].messages[msgIndex].message = "This message was deleted";
-
-        if (this.contacts[activeChat].messages[msgIndex].status == 'received') {
-          this.contacts[activeChat].messages[msgIndex].status = 'received'
-        } else{
-          this.contacts[activeChat].messages[msgIndex].status = 'sent'
-        }
       },
+
       getLocalTime(){
         let date = new Date();
         // removing 1 minute from minutes
@@ -298,6 +301,7 @@
           // second: '2-digit'
         });
       },
+
       changeTimeFormat(){
         this.contacts.forEach((contact) => {
           contact.messages.forEach((message) => {
@@ -306,14 +310,17 @@
       });
       },
     },
+
     created() {
       this.changeTimeFormat();
     },
+
     updated(){
       if (this.onHomePage == false) {
         this.scrollUp();
       };
       },
+
     mounted() {
       // event on ESC button to reset activeContact, and go back to homepage
       window.addEventListener('keydown', (e) => {

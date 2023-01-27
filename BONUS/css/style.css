@@ -219,11 +219,31 @@ img:not(.special):not(#userSettings img):not(#nav #navHeader img){
 #contactSettings,
 #emoji,
 #voiceRecord,
+#voiceSend,
+#voiceStop,
 #edit,
 #closeEmojis{
     cursor: pointer;
+    transition: 0.3s;
 }
 
+#voiceRecord:hover,
+#voiceStop:hover,
+#voiceSend:hover,
+#emoji:hover,
+#changeTheme:hover,
+#changeTheme2:hover,
+#openNewChat:hover,
+#settings:hover,
+#searchInChat:hover,
+#attachment:hover,
+#contactSettings:hover{
+    color: rgb(252, 136, 58);
+}
+
+#voiceSend{
+    margin-left: 19px!important;
+}
 /* --------Js classes manipulation-------- */
 .active{
     background-color: rgb(225, 222, 222);
