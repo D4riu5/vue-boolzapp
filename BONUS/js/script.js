@@ -421,9 +421,6 @@
                 this.userProfile.avatar = avatar.picture;
             }
         });
-        if (this.appLoaded == true) {
-          alert("Avatar Loaded")
-        }
       },
       resetAvatarSelection(){
         // when called, search if selected true is the same as avatar.picture 
