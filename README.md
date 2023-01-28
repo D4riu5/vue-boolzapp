@@ -7,6 +7,7 @@ check pdf file for project directive
 BONUSES implemented:
 
 - App Homepage, instead of chat. (no issues)
+- Contacts reply with a random message from a set of 26 pre-set replies.
 - Last message under contact name gets truncated if too long. (no issues)
 - Display full message under contact on mouseover. (no issues)
 - If last message was sent by User, display a check icon before message. (only on contact list, not in the actual chat)
