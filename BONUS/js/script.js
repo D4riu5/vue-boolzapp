@@ -4,6 +4,8 @@
   createApp({
     data() {
       return {
+        image: '',
+        hideMe: false,
         recordingStarted: false,
         recordingStopped: false,
         recordings: [],
@@ -264,15 +266,16 @@
       },
 
       setActiveContact(index) {
-           this.activeContact = index;
+        this.activeContact = index;
         this.searchBarInput = '';
         this.findContacts();
         this.getLocalTime();
         this.onHomePage = false;
         this.closeEmojiCanvas()
       },
-
+    
       addNewMessage(index){
+        
         this.newMessageSent = true;
         this.contacts[index].isChatting = true;
 
@@ -285,17 +288,15 @@
         }, 2000)
 
         
-
         let messageIndexes = [];
-        this.contacts[index].messages.push({date: 'now', message: this.newInput, status: 'sent', voiceMsg: this.recordings[this.recordings.length -1]});
+        this.contacts[index].messages.push({date: 'now', message: this.newInput, status: 'sent', voiceMsg: this.recordings[this.recordings.length -1], image: this.image });
         messageIndexes.push(this.contacts[index].messages.length -1);
         this.newInput = '';
         this.recordings = [];
         this.recordingStopped = false;
         this.recordingStarted = false;
+        this.image = null;
 
-    
-        
 
         // reply  
         setTimeout(() => {
@@ -506,7 +507,20 @@
           document.querySelector("#bg").classList.remove('my_custom-bg-dark');
           document.querySelector("#bg").classList.add('my_custom-bg');
         }
-      }
+      },
+
+      // getting url of image from file input
+      addImage() {
+          const file = this.$refs.fileInput.files[0];
+          const reader = new FileReader();
+          reader.onload = (e) => {
+            this.image = e.target.result;
+          };
+        reader.readAsDataURL(file);
+          setTimeout(() =>{
+            this.addNewMessage(this.activeContact)
+          },500);
+      },
     },
 
     created() {

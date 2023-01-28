@@ -217,28 +217,31 @@
                             </template>
                             
                             <div id="profileSettingsRight" class="d-flex align-items-center text-light-emphasis">
+
                                 <i id="searchInChat" class="fa-solid fa-magnifying-glass fs-6 p-1"></i>
-                                <i id="attachment" class="fa-solid fa-paperclip fs-6 mx-2 p-1"></i>
-                                <i id="contactSettings" class="fa-solid fa-ellipsis-vertical fs-6 p-1"></i>
+
+                                <i id="contactSettings" class="fa-solid fa-ellipsis-vertical fs-6 p-1 mx-2"></i>
                             </div>
                         </header>
                         <!-- chat header -->
                 
                          <!-- chat main body -->
                         <main class="d-flex flex-column py-3 messagesContainer flex-grow-1" ref="messagesContainer">
-                            <div v-for="(msg, index) in contacts[activeContact].messages" class="pe-4 ps-2" 
+                            <div v-for="(msg, index) in contacts[activeContact].messages" class="px-3" 
                             :class="{ 
                                 'message': true, 
                                 'sent': msg.status == 'sent', 
                                 'received': msg.status == 'received', 
                                 'd-flex': true, 
                                 'flex-column': true, 
+                                'justify-content-center' : true,
+                                'align-items-center' : true,
                                 'position-relative': true,
                                 'italics': msg.message == 'This message was deleted'
                             }">
                                 {{msg.message}}
-                                <audio v-if="msg.voiceMsg" :src="msg.voiceMsg" :controls="true">
-                                </audio>
+                                <img v-if="msg.image" :src="msg.image" alt="">
+                                <audio v-if="msg.voiceMsg" :src="msg.voiceMsg" :controls="true"></audio>
                                 <span class="dateSpan text-body-tertiary mt-1 pe-1" style="font-size: 0.58rem;">
                                     {{ msg.date }}
                                 </span>
@@ -271,7 +274,11 @@
                 
                         <!-- chat footer -->
                         <footer class="p-2 d-flex align-items-center flex-shrink-0">
-                            <i id="emoji" @click="openEmojiCanvas" class="fa-regular fa-face-smile mx-4 p-1 fs-5"></i>
+                            <label for="file-input">
+                                <i id="attachment" class="fa-solid fa-paperclip fs-5 ms-4 me-2 p-1"></i>
+                            </label>
+                            <input v-show="hideMe" ref="fileInput" @change="addImage" id="file-input" type="file" class="">
+                            <i id="emoji" @click="openEmojiCanvas" class="fa-regular fa-face-smile  me-4 p-1 fs-5"></i>
                             <form @submit.prevent="addNewMessage(activeContact)" class="flex-grow-1">
                                 <input v-model="newInput" id="sendMessage" required :disabled="recordingStarted && !recordingStopped" title="Type a message" type="text" placeholder="Type a message" class="form-control" ref="msgInput">
                             </form>
