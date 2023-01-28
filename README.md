@@ -33,12 +33,11 @@ BONUSES implemented:
   - ISSUES: 
     1. Cant cancel the recording, meaning you cannot stop and not send the audio recorded. only fix: refresh the page. 
     2. Voice recording is not specific, i.e. if chat is switched with another contact's the recording still goes on and every chat shows the stop button, as if it was started in every chat.
-- Added Theme selection through Button on top of the screen (soon/moon). Set Dark-theme as default. (no issues)
+- Added Theme selection through Button on top of the screen (sun/moon). Set Dark-theme as default. (no issues)
 - Chat bubble next to the moon icon focuses the Search input on click. (no issues)
 
 
 Planned BONUSES: 
-- Finish dark-mode theme
 - sort contact list by last message date
 - button to sort contact list by oldest message date
 - Mobile version of website
