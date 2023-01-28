@@ -256,18 +256,15 @@
         return this.contacts[this.activeContact].messages[this.contacts[this.activeContact].messages.length - 1];
         
        },
-       lastLoginText(){
-
-       }
     },
     methods:{
 
       toggleActive(contact) {
-        contact.active = !contact.active
+        contact.active = !contact.active;
       },
 
       setActiveContact(index) {
-        this.activeContact = index;
+           this.activeContact = index;
         this.searchBarInput = '';
         this.findContacts();
         this.getLocalTime();
@@ -276,6 +273,18 @@
       },
 
       addNewMessage(index){
+        this.newMessageSent = true;
+        this.contacts[index].isChatting = true;
+        setTimeout(() => {
+          this.newMessageSent = "typing";
+          setTimeout(() => {
+            this.newMessageSent = false;
+            this.contacts[index].isChatting = false;
+          }, 1500)
+        }, 2000)
+
+        
+
         let messageIndexes = [];
         this.contacts[index].messages.push({date: 'now', message: this.newInput, status: 'sent', voiceMsg: this.recordings[this.recordings.length -1]});
         messageIndexes.push(this.contacts[index].messages.length -1);
@@ -284,18 +293,15 @@
         this.recordingStopped = false;
         this.recordingStarted = false;
 
-        // not using this now 
-        // this.newMessageSent = true;
-        // setTimeout(() => {
-        //   this.newMessageSent = false;
-        // }, 1)
+    
+        
 
         // reply  
         setTimeout(() => {
           console.log("Delayed for 1 second.");
           this.contacts[index].messages.push({date: 'now', message: this.getRandomMessage(), status: 'received'});
           messageIndexes.push(this.contacts[index].messages.length -1);
-        }, 1000)
+        }, 3500)
         
         // update date time from now to current time -1 minute
         setTimeout(() => {

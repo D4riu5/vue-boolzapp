@@ -192,19 +192,29 @@
                     <div v-else class="chat d-flex flex-column">
                         <!-- chat header -->
                         <header class="d-flex justify-content-between p-2 flex-shrink-0">
-                            <div class="d-flex alig">
-                                <div>
-                                    <img class="rounded-circle " :src="'img/avatar' + contacts[activeContact].avatar + '.jpg'"  :alt="contacts[activeContact].name">
+                            <template v-for="(contact, index) in contacts">
+                                <div class="d-flex"  v-if="index === activeContact">
+                                    <div>
+                                        <img class="rounded-circle " :src="'img/avatar' + contact.avatar + '.jpg'"  :alt="contact.name">
+                                    </div>
+                                    <div class="px-2 flex-grow-1 overflow-hidden">
+                                        <h6 class="my_nopadding">
+                                            {{ contact.name }}
+                                        </h6>
+                                        
+                                        <span v-if="contact.isChatting == true && newMessageSent && newMessageSent !== 'typing'" data-bs-toggle="tooltip" data-bs-placement="bottom" title="placeholder" class="d-inline-block w-100 text-secondary" style="font-size: 0.7rem;">
+                                            {{  "Online" }}
+                                        </span>
+                                        <span v-if="contact.isChatting == true && newMessageSent === 'typing' " data-bs-toggle="tooltip" data-bs-placement="bottom" title="placeholder" class="d-inline-block w-100 text-secondary" style="font-size: 0.7rem;">
+                                            {{  "typing..." }}
+                                        </span>
+                                        <span v-else data-bs-toggle="tooltip" data-bs-placement="bottom" title="placeholder" class="d-inline-block w-100 text-secondary" style="font-size: 0.7rem;">
+                                            {{  lastMessage.date === 'now' ? 'now' :  (lastMessage.date.length < 6 ? 'Today at ' + lastMessage.date : lastMessage.date) }}
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="px-2 flex-grow-1 overflow-hidden">
-                                    <h6 class="my_nopadding">
-                                        {{ contacts[activeContact].name }}
-                                    </h6>
-                                    <span data-bs-toggle="tooltip" data-bs-placement="bottom" title="placeholder" class="d-inline-block w-100 text-secondary" style="font-size: 0.7rem;">
-                                        {{  lastMessage.date === 'now' ? 'now' :  (lastMessage.date.length < 6 ? 'Today at ' + lastMessage.date : lastMessage.date) }}
-                                    </span>
-                                </div>
-                            </div>
+                            </template>
+                            
                             <div id="profileSettingsRight" class="d-flex align-items-center text-light-emphasis">
                                 <i id="searchInChat" class="fa-solid fa-magnifying-glass p-1"></i>
                                 <i id="attachment" class="fa-solid fa-paperclip mx-2 p-1"></i>
