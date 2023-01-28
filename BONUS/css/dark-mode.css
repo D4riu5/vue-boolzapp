@@ -1,0 +1,207 @@
+.my_custom-bg-dark{
+    background: linear-gradient(0deg, rgba(52,51,51,1) 6%, rgba(0,0,0,0.9884686296393558) 84%, rgb(0,0,0) 84%);  
+    height: 100vh;
+}
+
+.dark{
+    color: rgb(211, 210, 210);
+    background-color: #111b21;
+}
+
+.dark #noChat{
+    background-color: #222e35;
+}
+
+.dark .chat main{
+    background-color: #182024;
+    background-image: url("../img/pattern2.png");
+}
+
+.dark #userSettings header{
+    background-color: #202c33;
+} 
+
+
+.dark #userSettings main .my_top,
+.dark #userSettings main .my_bot{
+    background-color: #111b21;
+}
+
+.dark  .form-control:focus {
+    border-color: #08886f;
+    box-shadow: 0 0 0 0.1rem rgba(8, 136, 111, 0.936);
+} 
+
+.dark label{
+    background-color: #202c33;
+    color: #08886f;
+    border-color: transparent;
+}
+
+.dark input{
+    background-color: #2a3942;
+    color: white;
+    border-color: #2a3942;
+    
+}
+
+.dark input:focus {
+    background-color: #202c33;
+    color: white;
+}
+
+.dark input:disabled{
+    background-color: #202c33;
+}
+
+.dark ::placeholder {
+    color: rgb(211, 210, 210) !important;;
+}
+
+
+.dark .border-dark-subtle{
+    border-color: #232424!important;
+}
+
+.dark #userSettings main .my_mid{
+    color: #08886f;
+}
+
+.dark #special-input{
+    color: rgb(211, 210, 210);
+}
+
+.dark .sub-text{
+   color: #6c757d;
+}
+
+.dark #noChat{
+    border-color: #056956 !important;
+}
+
+.dark #nav #notifications{
+    background-color: #056956;
+}
+
+
+.dark .fa-bell-slash{
+    color: #08886f!important;
+}
+
+.dark #my-link,
+.dark #special-p{
+    color: black!important;
+}
+
+.dark #nav #navHeader{
+    background-color: #202c33;
+}
+
+.dark .active{
+    background-color: #2a3942;
+}
+
+.dark .chat header,
+.dark .chat footer{
+    background-color: #202c33;
+}
+
+.dark .sent{
+    background-color: #005c4b;
+}
+
+.dark .received{
+   background-color: #202c33;
+}
+
+.dark .message > span{
+    color: #72a59c!important;
+}
+
+
+/* MODALS */
+.dark .modal-header,
+.dark .modal-footer{
+    background-color: #2a524b!important;
+    border-color: #2a524b!important;
+}
+
+.dark .modal-body{
+    background-color: #202c33!important;
+}
+
+.dark .selected{
+    border-color: #05862e;
+}
+
+
+.dark .emojiContainer{
+    background-color: #111b21;
+}
+
+/* icons */
+.dark #changeTheme,
+.dark #changeTheme2,
+.dark #openNewChat,
+.dark #settings,
+.dark #searchInChat,
+.dark #attachment,
+.dark #contactSettings,
+.dark #emoji,
+.dark #voiceRecord,
+.dark #voiceSend,
+.dark #voiceStop,
+.dark #voiceCancel,
+.dark #edit,
+.dark #closeEmojis{
+    color: #056956;
+}
+
+
+
+/* ON HOVER */
+.dark .contact-card:hover:not(.active){
+    background-color: #233138;
+}
+
+.dark #voiceRecord:hover,
+.dark #voiceStop:hover,
+.dark #voiceSend:hover,
+.dark #emoji:hover,
+.dark #changeTheme:hover,
+.dark #changeTheme2:hover,
+.dark #openNewChat:hover,
+.dark #settings:hover,
+.dark #searchInChat:hover,
+.dark #attachment:hover,
+.dark #contactSettings:hover{
+    color: #42cba5;
+}
+
+
+
+
+
+.dark .my_orange-btn{
+    background-color: #088763;
+    color: rgb(233, 232, 232);
+}
+
+.dark .my_orange-btn:hover{
+    color: rgb(233, 232, 232);
+    background-color: #111b21;
+}
+
+
+/* dropdown menu */
+.dark .dropdown-menu{
+    background-color: #111b21;
+}
+
+.dark .dropdown-menu a{
+    color: rgb(211, 210, 210);
+}
+
+.dark .dropdown-menu a:hover{
+    background-color: #233138;
+}

@@ -14,10 +14,11 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
         <!-- my CSS files -->
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/dark-mode.css">
         <link rel="stylesheet" href="css/mediaQuery.css">
         
     </head>
-    <body class="my_custom-bg relative overflow-hidden">
+    <body id="bg" class="my_custom-bg-dark relative overflow-hidden">
 
     <div id="app">
         <div  class="container bg-white mt-3 position-absolute top-0 start-50 translate-middle-x" >
@@ -74,7 +75,7 @@
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-footer d-flex justify-content-center" style="background-color: rgb(225, 222, 222);">
-                                            <button class="btn px-3 my_orange-btn" data-bs-target="#exampleModalToggle" data-bs-toggle="modal">Ok</button>
+                                            <button class="btn px-3 my_orange-btn" data-bs-target="#exampleModalToggle" data-bs-dismiss="modal">Ok</button>
                                         </div>
                                     </div>
                                 </div>
@@ -87,13 +88,13 @@
                                 Your Name
                             </span>
                             <div class="text-dark d-flex align-items-center justify-content-between my-2">
-                                <input @blur="disableInput" @keydown.enter="saveNewName()" ref="changeName" v-model="userProfile.name" type="text"  disabled  class="my_Name"></input>
+                                <input id="special-input" @blur="disableInput" @keydown.enter="saveNewName()" ref="changeName" v-model="userProfile.name" type="text"  disabled  class="my_Name"></input>
                                 <i @click="editUserName" id="edit" class="fa-solid fa-pencil fs-6 p-2"></i>
                             </div>
                             <span id="edit-tip" v-show="isEditing" class="position-absolute"> Press Enter to save your new Name </span>
                         </div>
                         <div class="my_bot d-flex p-4">
-                            <span>This is not your username or pin. This name will be visible to your BoolZapp contacts.</span>
+                            <span class="sub-text">This is not your username or pin. This name will be visible to your BoolZapp contacts.</span>
                         </div>
                     </Main>
                 </div>
@@ -110,10 +111,10 @@
                             </h6>
                         </div>
                         <div class="d-flex align-items-center text-light-emphasis dropstart">
-                            <i v-if="darkTheme == true" id="changeTheme2" @click="switchTheme" class="fa-solid fa-sun p-1"></i>
-                            <i v-else id="changeTheme" @click="switchTheme" class="fa-solid fa-moon p-1"></i>
-                            <label data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search or start a new chat" for="inputSearchBar" id="openNewChat" class="fa-solid fa-message p-1 mx-2"></label>
-                            <i id="settings" data-bs-toggle="dropdown" class="fa-solid fa-ellipsis-vertical p-1"></i>
+                            <i v-if="darkTheme == true" id="changeTheme2" @click="switchTheme(), changeBodyClass()" class="fa-solid fa-sun fs-6 p-1"></i>
+                            <i v-else id="changeTheme" @click="switchTheme(), changeBodyClass()" class="fa-solid fa-moon fs-6 p-1"></i>
+                            <label data-bs-toggle="tooltip" data-bs-placement="bottom" title="Search or start a new chat" for="inputSearchBar" id="openNewChat" class="fa-solid fa-message fs-6 p-1 mx-2"></label>
+                            <i id="settings" data-bs-toggle="dropdown" class="fa-solid fa-ellipsis-vertical fs-6 p-1"></i>
     
                             <!-- settings DropDown -->
                             <ul class="dropdown-menu my-4 ps-2">
@@ -131,11 +132,11 @@
                     <!---------- Notifications "pop-up" Start---------->
                     <div id="notifications" class="d-flex align-items-center p-2 g-2">
                         <div id="notificationsCircle" class="d-flex justify-content-center align-items-center bg-white rounded-circle">
-                            <i style="color: rgb(252, 136, 58) !important;" class="fa-solid fa-bell-slash fs-5"></i>
+                            <i style="color: rgb(252, 136, 58);" class="fa-solid fa-bell-slash fs-5"></i>
                         </div>
                         <div class="mx-2">
-                            <p class="my_nopadding">Get new messages notifications!</p>
-                            <a href="#nogo">Enable desktop notifications</a>
+                            <p id="special-p" class="my_nopadding">Get new messages notifications!</p>
+                            <a id="my-link" href="#nogo">Enable desktop notifications</a>
                         </div>
                     </div>
                     <!---------- Notifications "pop-up" End---------->
@@ -144,7 +145,7 @@
                     <div id="searchBar" class=" p-2 d-flex">
                         <div class="input-group input-group-sm" style="height: 50%;">
                             <label for="inputSearchBar" class="input-group-text px-3">
-                                <i class="fa-solid fa-magnifying-glass"></i>
+                                <i class="fa-solid fa-magnifying-glass fs-5"></i>
                             </label>
                             <input id="inputSearchBar" v-model="searchBarInput" type="search" placeholder="Search or start new chat" @input="findContacts()" class="form-control">
                         </div>
@@ -179,7 +180,7 @@
                 <div id="chatContainer" class="my_nopadding col-8">
                     <!---------- "homepage-chat" Start---------->
                     <div v-if="activeContact == null" id="noChat" class="d-flex flex-column align-items-center justify-content-around border-bottom">
-                        <img class="special" src="img/backdrop_light.png" alt="backdrop_light">
+                        <img class="special" :src="darkTheme ? 'img/backdrop_dark.png' : 'img/backdrop_light.png'" alt="backdrop_img">
                         <div class="text-center">
                             <h2>BoolZapp Web</h2>
                             <p class="my-3">Send and receive messages without keeping your phone online <br> Use BoolzApp on up to 0 linked devices and phones at the same time.</p>
@@ -216,9 +217,9 @@
                             </template>
                             
                             <div id="profileSettingsRight" class="d-flex align-items-center text-light-emphasis">
-                                <i id="searchInChat" class="fa-solid fa-magnifying-glass p-1"></i>
-                                <i id="attachment" class="fa-solid fa-paperclip mx-2 p-1"></i>
-                                <i id="contactSettings" class="fa-solid fa-ellipsis-vertical p-1"></i>
+                                <i id="searchInChat" class="fa-solid fa-magnifying-glass fs-6 p-1"></i>
+                                <i id="attachment" class="fa-solid fa-paperclip fs-6 mx-2 p-1"></i>
+                                <i id="contactSettings" class="fa-solid fa-ellipsis-vertical fs-6 p-1"></i>
                             </div>
                         </header>
                         <!-- chat header -->
@@ -274,9 +275,15 @@
                             <form @submit.prevent="addNewMessage(activeContact)" class="flex-grow-1">
                                 <input v-model="newInput" id="sendMessage" required :disabled="recordingStarted && !recordingStopped" title="Type a message" type="text" placeholder="Type a message" class="form-control" ref="msgInput">
                             </form>
+
                             <span v-if="recordingStarted && !recordingStopped" class="ms-4 p-1">Recording...</span>
+
                             <i v-if="!recordingStarted" @click="startRecording()" id="voiceRecord" ref="startBtn" class="fa-solid fa-microphone mx-4 p-1 fs-5"></i>
+                            <!-- Cancel recording, cant get it to work -->
+                            <!-- <i v-if="recordingStarted && !recordingStopped" @click="this.mediaRecorder.stop(), cancelRecording()" id="voiceCancel" class="fa-solid fa-xmark ms-4 p-1 fs-5"></i> -->
+
                             <i v-if="recordingStarted && !recordingStopped" @click="this.mediaRecorder.stop(), stopRecording()" id="voiceStop" class="fa-solid fa-stop mx-4 p-1 fs-5"></i>
+
                             <i v-if="recordingStopped == true" @click="this.addNewMessage(activeContact)" id="voiceSend" class="fa-solid fa-paper-plane mx-4 p-1 fs-5"></i>
                         </footer>
                         <!-- chat footer -->

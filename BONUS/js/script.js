@@ -11,7 +11,7 @@
         appLoaded: false,
         choosingAvatar: false,
         activeAvatar: 0,
-        darkTheme: false,
+        darkTheme: true,
         emojiOpen: false,
         onHomePage: true,
         userDefaultName: 'Darius',
@@ -275,6 +275,7 @@
       addNewMessage(index){
         this.newMessageSent = true;
         this.contacts[index].isChatting = true;
+
         setTimeout(() => {
           this.newMessageSent = "typing";
           setTimeout(() => {
@@ -382,6 +383,7 @@
           // second: '2-digit'
         });
       },
+
       changeTimeFormat(){
         this.contacts.forEach((contact) => {
           contact.messages.forEach((message) => {
@@ -389,23 +391,27 @@
           });
       });
       },
+
       editUserName() {
         this.isEditing = true;
         this.$refs.changeName.removeAttribute("disabled");
         this.$refs.changeName.focus();
       },
+
       disableInput(){
         this.$refs.changeName.setAttribute("disabled", true);
         this.$refs.changeName.blur();
         this.userProfile.name = this.userDefaultName;
         this.isEditing = false;
       },
+
       saveNewName(){
         this.userDefaultName = this.userProfile.name;
         this.$refs.changeName.blur();
         this.$refs.changeName.setAttribute("disabled", true);
         this.isEditing = false;
       },
+
       openEmojiCanvas(){
         if (this.emojiOpen == true) {
           this.closeEmojiCanvas();
@@ -416,16 +422,19 @@
           this.emojiOpen = true;
         };
       },
+
       closeEmojiCanvas(){
         setTimeout(() => {
           this.scrollUp();
         }, 1)
         this.emojiOpen = false;
       },
+
       addEmoji(singleEmoji){
         this.newInput += singleEmoji
         this.$refs.msgInput.focus();
       },
+
       switchTheme(){
         if (!this.darkTheme) {
           this.darkTheme = true;
@@ -433,6 +442,7 @@
           this.darkTheme = false;
         }
       },
+
       selectNewAvatar(i){
         this.activeAvatar = i;
         if (this.avatars[this.activeAvatar].selected === true) {
@@ -444,6 +454,7 @@
           this.avatars[this.activeAvatar].selected = true;
         }
       },
+
       assignAvatar() {
         this.avatars.forEach(avatar => {
             if (avatar.selected === true) {
@@ -451,6 +462,7 @@
             }
         });
       },
+
       resetAvatarSelection(){
         // when called, search if selected true is the same as avatar.picture 
         this.avatars.forEach(avatar => {
@@ -477,7 +489,26 @@
         this.recordingStopped = true;
       },
       
+      // cant get this to work
+      // cancelRecording(){
+      //   this.audioBlob = null;
+      //   this.recordings = []
+      //   this.recordingStopped = false;
+      //   this.recordingStarted = false;
+      // }
+
+      // using querySelector cuz #body is outside of #app instance
+      changeBodyClass() {
+        if (this.darkTheme) {
+          document.querySelector("#bg").classList.remove('my_custom-bg');
+          document.querySelector("#bg").classList.add('my_custom-bg-dark');
+        } else {
+          document.querySelector("#bg").classList.remove('my_custom-bg-dark');
+          document.querySelector("#bg").classList.add('my_custom-bg');
+        }
+      }
     },
+
     created() {
       this.changeTimeFormat();
       this.assignAvatar();

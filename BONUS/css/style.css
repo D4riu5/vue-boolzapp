@@ -2,7 +2,6 @@
 /* --------Custom rules-------- */
 /* ------BG-------- */
 .my_custom-bg{
-    background: rgb(52,51,51);
     background: linear-gradient(0deg, rgba(52,51,51,1) 6%, rgba(0,0,0,0.9884686296393558) 84%, rgb(253, 150, 32) 84%); 
     height: 100vh;
 }
@@ -221,6 +220,7 @@ img:not(.special):not(#userSettings img):not(#nav #navHeader img){
 #voiceRecord,
 #voiceSend,
 #voiceStop,
+#voiceCancel,
 #edit,
 #closeEmojis{
     cursor: pointer;
@@ -239,6 +239,10 @@ img:not(.special):not(#userSettings img):not(#nav #navHeader img){
 #attachment:hover,
 #contactSettings:hover{
     color: rgb(252, 136, 58);
+}
+
+#voiceCancel:hover{
+    color: red;
 }
 
 #voiceSend{
@@ -325,17 +329,6 @@ img:not(.special):not(#userSettings img):not(#nav #navHeader img){
 /* OFFCANVAS */
 
 
-
-/* dark THEME */
-.dark{
-    color: white !important;
-    background-color: #111b21!important;
-}
-/* dark THEME */
-
-
-
-
 /*----- Modal -------*/
 .modal{
     width: 70%;
@@ -371,6 +364,9 @@ img:not(.special):not(#userSettings img):not(#nav #navHeader img){
     z-index: -1;
 }
 
+.border-dark-subtle{
+    border-color: #d8dbe0!important;
+}
 
 /* --------DEBUG-------- */
 .my_bordered{
