@@ -35,6 +35,7 @@ BONUSES implemented:
     2. Voice recording is not specific, i.e. if chat is switched with another contact's the recording still goes on and every chat shows the stop button, as if it was started in every chat.
 - Added Theme selection through Button on top of the screen (sun/moon). Set Dark-theme as default. (no issues)
 - Chat bubble next to the moon icon focuses the Search input on click. (no issues)
+- Added images sharing: moved the attachment icon next to the emoji icon, when press can import image from pc, and it will be sent as a message in chat. (no issues)
 
 
 Planned BONUSES: 
@@ -47,6 +48,5 @@ Planned BONUSES:
 - in chat settings dropdown:
   - block contact
   - delete chat
-- attachments button, i.e send pictures, files etc as a text message
 - search message in chat button. i.e. F ctrl + f, but only searches for messages in chat 
   
