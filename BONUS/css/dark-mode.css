@@ -32,7 +32,7 @@
     box-shadow: 0 0 0 0.1rem rgba(8, 136, 111, 0.936);
 } 
 
-.dark label:not(#openNewCat):not(#uploadAvatarLabel){
+.dark label:not(#openNewCat):not(#uploadAvatarLabel):not(#openNewChat){
     background-color: #202c33;
     color: #08886f;
     border-color: transparent;
