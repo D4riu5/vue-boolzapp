@@ -16,6 +16,11 @@
         activeAvatar: 0,
         darkTheme: true,
         emojiOpen: false,
+        emojiSelected: false,
+        stickerOpen: false,
+        stickerSelected: false,
+        gifOpen: false,
+        gifSelected: false,
         onHomePage: true,
         userDefaultName: 'Darius',
         isEditing: false,
@@ -209,6 +214,12 @@
         ],
         emojis: [
           "😀","😁","😂","😃","😄","😅","😆","😇","😈","😉","😊","😋","😌","😍","😎","😏","😐","😑","😒","😓","😔","😢","👍","👎","💪","🙏","🚶‍♀️","🐶","🌺","🍔","🌞","🍋","⭐","🚗","🎵","🌹","❤️"
+        ],
+        stickers: [
+          'img/sticker1.webp','img/sticker2.webp','img/sticker3.webp','img/sticker4.png',
+        ],
+        gifs: [
+          'https://media.tenor.com/KtMnAwmpw8sAAAAM/pedro-monkey-puppet.gif','https://media.tenor.com/0YXMEL2FltcAAAAC/nice-christian-bale.gif','https://media.tenor.com/JArWuvk_rsIAAAAC/leao-surf-leao-surfing.gif','https://cdn.vox-cdn.com/thumbor/a5EcHSnHLRfQyzSFvhmPSnibCq0=/0x0:420x314/1400x1400/filters:focal(136x115:202x181):format(gif)/cdn.vox-cdn.com/uploads/chorus_image/image/55279403/tenor.0.gif','https://media.tenor.com/_7UvW84LwaAAAAAd/blinking-eyes-huh.gif','https://cdn.vox-cdn.com/uploads/chorus_asset/file/8692949/no_words_homer_into_brush.gif','https://media.tenor.com/nVsnTj_elCMAAAAd/shrek-dance.gif','https://i.imgflip.com/4utovc.gif',
         ],
         avatars: [
           // avatar 01
@@ -411,16 +422,25 @@
         this.$refs.changeName.setAttribute("disabled", true);
         this.isEditing = false;
       },
-
+      // Emojis
       openEmojiCanvas(){
-        if (this.emojiOpen == true) {
+        if (this.emojiOpen || this.stickerOpen || this.gifOpen) {
           this.closeEmojiCanvas();
+          this.closeStickerCanvas();
+          this.closeGifCanvas();
         } else {
           setTimeout(() => {
             this.scrollUp();
           }, 1)
           this.emojiOpen = true;
+          this.emojiSelected = true;
         };
+      },
+
+      openEmojiCanvasV2(){
+        this.stickerOpen = false;
+        this.gifOpen = false;
+        this.emojiOpen = true;
       },
 
       closeEmojiCanvas(){
@@ -428,13 +448,58 @@
           this.scrollUp();
         }, 1)
         this.emojiOpen = false;
+        this.emojiSelected = false;
+        this.stickerOpen =false;
+        this.gifOpen = false;
       },
 
       addEmoji(singleEmoji){
-        this.newInput += singleEmoji
+        this.newInput += singleEmoji;
         this.$refs.msgInput.focus();
       },
 
+      // Stickers
+      openStickerCanvas(){
+        this.emojiOpen = false;
+        this.gifOpen = false;
+        this.stickerOpen = true;
+        this.stickerSelected = true;
+      }, 
+
+      closeStickerCanvas(){
+        setTimeout(() => {
+          this.scrollUp();
+        }, 1)
+        this.stickerOpen =false;
+        this.stickerSelected = false;
+      },
+
+      addStickerGif(src) {
+        this.image = src;
+        setTimeout(() =>{
+          this.addNewMessage(this.activeContact)
+        },500);
+    },
+
+      // Gifs
+
+      openGifCanvas(){
+        this.emojiOpen = false;
+        this.stickerOpen = false;
+        this.gifOpen = true;
+        this.gifSelected = true;
+      }, 
+
+      closeGifCanvas(){
+        setTimeout(() => {
+          this.scrollUp();
+        }, 1)
+        this.gifOpen =false;
+        this.gifSelected = false;
+      },
+
+
+      // theme selection
       switchTheme(){
         if (!this.darkTheme) {
           this.darkTheme = true;
@@ -518,14 +583,25 @@
       addImage() {
           const file = this.$refs.fileInput.files[0];
           const reader = new FileReader();
+          reader.readAsDataURL(file);
           reader.onload = (e) => {
             this.image = e.target.result;
           };
-        reader.readAsDataURL(file);
+        
           setTimeout(() =>{
             this.addNewMessage(this.activeContact)
           },500);
       },
+
+      uploadNewAvatar(){
+        const avatarFile = this.$refs.avatarFileInput.files[0];
+        const reader = new FileReader();
+        reader.readAsDataURL(avatarFile);
+        reader.onload = (e) => {
+          this.avatars.push({ selected: false, picture: e.target.result });
+        }
+        
+      }
     },
 
     created() {
@@ -547,7 +623,7 @@
             this.choosingAvatar = !this.choosingAvatar;
             
 
-          } else if (this.isEditing == false && !this.emojiOpen && !this.activeSettings) {
+          } else if (this.isEditing == false && !this.emojiOpen && !this.stickerOpen && !this.gifOpen && !this.activeSettings) {
             this.activeContact = null;
             this.searchBarInput = '';
             this.findContacts();
@@ -561,8 +637,10 @@
           } else if (this.activeSettings) {
             this.activeSettings = false;
 
-          } else if (this.emojiOpen) {
+          } else if (this.emojiOpen || this.stickerOpen || this.gifOpen) {
             this.closeEmojiCanvas();
+            this.closeStickerCanvas();
+            this.closeGifCanvas();
           } 
         }
     });

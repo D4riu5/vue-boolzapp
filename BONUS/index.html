@@ -56,10 +56,19 @@
                                             <img v-for="(avatar, index) in avatars" class="m-4 imageSelection rounded-circle" :class="(avatar.selected === true ? 'selected' : '')" :src="avatar.picture" @click="selectNewAvatar(index)" alt="">
                                         </div>
                                         <div class="modal-footer d-flex justify-content-center" style="background-color: rgb(225, 222, 222);">
+                                            <!-- upload your image -->
+                                            
+
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="choosingAvatar = !choosingAvatar, resetAvatarSelection()">
                                                 Close
                                             </button>
                                             <button type="button" class="btn my_orange-btn" @click="assignAvatar()" data-bs-target="#pop-up_alert" data-bs-toggle="modal">Save changes</button>
+
+                                            <label  id="uploadAvatarLabel" for="avatar-file-input">
+                                                <i id="uploadAvatar" class="fa-solid fa-upload fs-2"></i>
+                                            </label>
+                                            <input v-show="hideMe" ref="avatarFileInput" @change="uploadNewAvatar()" id="avatar-file-input" type="file" class="">
+                                            <span id="uploadAvatarText">Upload new avatar...</span>
                                         </div>
                                     </div>
                                 </div>
@@ -266,8 +275,15 @@
                         <!-- chat main body -->
                 
                             <!-- chat offcanvas -->
-                        <div v-if="emojiOpen"  class="emojiContainer flex-shrink-0 position-relative d-flex flex-column p-3">
-                            <h5 class="border-bottom border-dark-subtle py-2">Emoji list</h5>
+
+                        <!-- EMOJI -->
+                        <div v-if="emojiOpen"  class="menuContainer flex-shrink-0 position-relative d-flex flex-column p-3">
+                            <div class="d-flex border-bottom border-dark-subtle py-2 menuSubContainer">
+                                <h5 class="mx-2 p-1" :class="emojiSelected ? 'selectedBorder' : ''">Emojis</h5>
+                                <h5 @click="openStickerCanvas()" class="mx-2 p-1">Stickers</h5>
+                                <h5 @click="openGifCanvas()" class="mx-2 p-1">Gifs</h5>
+                            </div>
+                            
                             <i @click="closeEmojiCanvas" id="closeEmojis" class="fa-solid fa-circle-xmark fs-4 position-absolute top-0 end-0 p-3"></i>
                             <div class="emoji-wrapper d-flex flex-wrap">
                                 <span v-for="(emoji,index) in emojis" class="emoji" @click="addEmoji(emoji)">
@@ -275,22 +291,53 @@
                                 </span>
                             </div>
                         </div>
+
+                        <!-- STICKER -->
+                        <div v-if="stickerOpen"  class="menuContainer flex-shrink-0 position-relative d-flex flex-column p-3">
+                            <div class="d-flex border-bottom border-dark-subtle py-2 menuSubContainer">
+                                <h5 @click="openEmojiCanvasV2()" class="mx-2 p-1" >Emojis</h5>
+                                <h5 class="mx-2 p-1" :class="stickerSelected ? 'selectedBorder' : ''">Stickers</h5>
+                                <h5 @click="openGifCanvas()" class="mx-2 p-1">Gifs</h5>
+                            </div>
+                            
+                            <i @click="closeEmojiCanvas" id="closeStickers" class="fa-solid fa-circle-xmark fs-4 position-absolute top-0 end-0 p-3"></i>
+                            <div class="emoji-wrapper d-flex flex-wrap">
+                                <img v-for="(sticker,index) in stickers" :src="sticker" :alt="sticker" class="sticker m-4" @click="addStickerGif(sticker)">
+                            </div>
+                        </div>
+
+                        <!-- GIF -->
+                        <div v-if="gifOpen"  class="menuContainer flex-shrink-0 position-relative d-flex flex-column p-3">
+                            <div class="d-flex border-bottom border-dark-subtle py-2 menuSubContainer">
+                                <h5 @click="openEmojiCanvasV2()" class="mx-2 p-1" >Emojis</h5>
+                                <h5 @click="openStickerCanvas()" class="mx-2 p-1" >Stickers</h5>
+                                <h5 :class="gifSelected ? 'selectedBorder' : ''" class="mx-2 p-1">Gifs</h5>
+                            </div>
+                            
+                            <i @click="closeEmojiCanvas" id="closeGifs" class="fa-solid fa-circle-xmark fs-4 position-absolute top-0 end-0 p-3"></i>
+                            <div class="emoji-wrapper d-flex flex-wrap">
+                                <img v-for="(gif,index) in gifs" :src="gif" class="gif m-4" @click="addStickerGif(gif)"></img>
+                            </div>
+                        </div>
+
+
+                        
                             <!-- chat offcanvas -->
                 
                         <!-- chat footer -->
                         <footer class="p-2 d-flex align-items-center flex-shrink-0">
+                            <i id="emoji" @click="blockChat ? null : openEmojiCanvas()" class="fa-regular fa-face-smile ms-4 me-2 p-1  fs-5"></i>
                             <label for="file-input">
-                                <i id="attachment" class="fa-solid fa-paperclip fs-5 ms-4 me-2 p-1"></i>
+                                <i id="attachment" class="fa-solid fa-paperclip fs-5 me-4 p-1"></i>
                             </label>
                             <input v-show="hideMe" ref="fileInput" @change="addImage" :disabled="blockChat" id="file-input" type="file" class="">
-                            <i id="emoji" @click="blockChat ? null : openEmojiCanvas()" class="fa-regular fa-face-smile  me-4 p-1 fs-5"></i>
                             <form @submit.prevent="addNewMessage(activeContact)" class="flex-grow-1">
                                 <input v-model="newInput" id="sendMessage" required :disabled="blockChat" title="Type a message" type="text" placeholder="Type a message" class="form-control" ref="msgInput">
                             </form>
 
                             <span v-if="recordingStarted && !recordingStopped" class="ms-4 p-1">Recording...</span>
 
-                            <i v-if="!recordingStarted" @click="startRecording()" id="voiceRecord" ref="startBtn" class="fa-solid fa-microphone mx-4 p-1 fs-5"></i>
+                            <i v-if="!recordingStarted" @click="startRecording(), closeEmojiCanvas()" id="voiceRecord" ref="startBtn" class="fa-solid fa-microphone mx-4 p-1 fs-5"></i>
                             <!-- Cancel recording, cant get it to work -->
                             <!-- <i v-if="recordingStarted && !recordingStopped" @click="this.mediaRecorder.stop(), cancelRecording()" id="voiceCancel" class="fa-solid fa-xmark ms-4 p-1 fs-5"></i> -->
 

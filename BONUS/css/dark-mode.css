@@ -32,7 +32,7 @@
     box-shadow: 0 0 0 0.1rem rgba(8, 136, 111, 0.936);
 } 
 
-.dark label{
+.dark label:not(#openNewCat):not(#uploadAvatarLabel){
     background-color: #202c33;
     color: #08886f;
     border-color: transparent;
@@ -135,9 +135,16 @@
 }
 
 
-.dark .emojiContainer{
+.dark .menuContainer{
     background-color: #111b21;
 }
+
+
+.dark .selectedBorder{
+    border-bottom: 4px solid #05862e;
+}
+
+
 
 /* icons */
 .dark #changeTheme,
@@ -153,10 +160,15 @@
 .dark #voiceStop,
 .dark #voiceCancel,
 .dark #edit,
-.dark #closeEmojis{
+.dark #closeEmojis,
+.dark #closeStickers,
+.dark #closeGifs{
     color: #056956;
 }
 
+.dark #uploadAvatar{
+    color: #088763;
+}
 
 
 /* ON HOVER */
@@ -174,7 +186,12 @@
 .dark #settings:hover,
 .dark #searchInChat:hover,
 .dark #attachment:hover,
-.dark #contactSettings:hover{
+.dark #contactSettings:hover,
+.dark #edit:hover,
+.dark #closeEmojis:hover,
+.dark #closeStickers:hover,
+.dark #closeGifs:hover,
+.dark #uploadAvatar:hover{
     color: #42cba5;
 }
 

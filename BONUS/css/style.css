@@ -137,7 +137,7 @@
 }
 
 /* --------IMAGES-------- */
-img:not(.special):not(#userSettings img):not(#nav #navHeader img):not(.message img){
+img:not(.special):not(#userSettings img):not(#nav #navHeader img):not(.message img):not(.sticker):not(.gif){
     width: 35px;
     aspect-ratio: 1/1;
     object-fit: cover;
@@ -220,9 +220,11 @@ img:not(.special):not(#userSettings img):not(#nav #navHeader img):not(.message i
 #voiceRecord,
 #voiceSend,
 #voiceStop,
-#voiceCancel,
 #edit,
-#closeEmojis{
+#closeEmojis,
+#closeStickers,
+#closeGifs,
+#uploadAvatar{
     cursor: pointer;
     transition: 0.3s;
 }
@@ -237,12 +239,18 @@ img:not(.special):not(#userSettings img):not(#nav #navHeader img):not(.message i
 #settings:hover,
 #searchInChat:hover,
 #attachment:hover,
-#contactSettings:hover{
+#contactSettings:hover,
+#edit:hover,
+#closeEmojis:hover,
+#closeStickers:hover,
+#closeGifs:hover,
+#uploadAvatar:hover{
     color: rgb(252, 136, 58);
 }
 
-#voiceCancel:hover{
-    color: red;
+
+#uploadAvatarText{
+    
 }
 
 #voiceSend{
@@ -338,10 +346,19 @@ img:not(.special):not(#userSettings img):not(#nav #navHeader img):not(.message i
 
   
 /* OFFCANVAS */
-.emojiContainer{
+.menuContainer{
     height: 200px;
     background-color: rgb(225, 222, 222);
 }
+
+.menuSubContainer>h5{
+    cursor: pointer;
+}
+
+.selectedBorder{
+    border-bottom: 4px solid #fd9620;
+}
+
 
 .emoji-wrapper {
     overflow: auto;
@@ -355,6 +372,14 @@ img:not(.special):not(#userSettings img):not(#nav #navHeader img):not(.message i
     margin: 15px;
     cursor: pointer;
     font-family: "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.sticker,
+.gif{
+    width: 80px;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+    cursor: pointer;
 }
 /* OFFCANVAS */
 
