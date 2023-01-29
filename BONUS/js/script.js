@@ -286,11 +286,11 @@
             this.newMessageSent = false;
             this.contacts[index].isChatting = false;
           }, 1500)
-        }, 2000)
+        }, 2000);
 
         
         let messageIndexes = [];
-        this.contacts[index].messages.push({date: 'now', message: this.newInput, status: 'sent', voiceMsg: this.recordings[this.recordings.length -1], image: this.image });
+        this.contacts[index].messages.push({date: this.getLocalTime(), message: this.newInput, status: 'sent', voiceMsg: this.recordings[this.recordings.length -1], image: this.image });
         messageIndexes.push(this.contacts[index].messages.length -1);
         this.newInput = '';
         this.recordings = [];
@@ -301,17 +301,11 @@
 
         // reply  
         setTimeout(() => {
-          console.log("Delayed for 1 second.");
-          this.contacts[index].messages.push({date: 'now', message: this.getRandomMessage(), status: 'received'});
+          this.contacts[index].messages.push({date: this.getLocalTime(), message: this.getRandomMessage(), status: 'received'});
           messageIndexes.push(this.contacts[index].messages.length -1);
-        }, 3500)
+        }, 3500);
         
-        // update date time from now to current time -1 minute
-        setTimeout(() => {
-          messageIndexes.forEach((i) => {
-            this.contacts[index].messages[i].date = this.getLocalTime();
-          });
-        }, 60000)
+       
       },
 
       findContacts(){
@@ -378,7 +372,7 @@
 
         let date = new Date();
         // removing 1 minute from minutes
-        date.setMinutes(date.getMinutes() - 1);
+        // date.setMinutes(date.getMinutes() - 1);
 
         return date.toLocaleString('it-IT', {
           // day: '2-digit',

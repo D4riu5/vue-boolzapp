@@ -210,7 +210,7 @@
                                             {{  "typing..." }}
                                         </span>
                                         <span v-else data-bs-toggle="tooltip" data-bs-placement="bottom" title="placeholder" class="d-inline-block w-100 text-secondary" style="font-size: 0.7rem;">
-                                            {{  lastMessage.date === 'now' ? 'now' :  (lastMessage.date.length < 6 ? 'Today at ' + lastMessage.date : lastMessage.date) }}
+                                            {{  lastMessage.date.length < 6 ? 'Today at ' + lastMessage.date : lastMessage.date }}
                                         </span>
                                     </div>
                                 </div>

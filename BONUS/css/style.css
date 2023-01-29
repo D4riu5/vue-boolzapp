@@ -318,7 +318,8 @@ img:not(.special):not(#userSettings img):not(#nav #navHeader img):not(.message i
     bottom: 0;
     left: 47%;
     color: black;
-    font-size: 20px;
+    font-size: 22px;
+    
 }
 
 /* dropDown menu */
