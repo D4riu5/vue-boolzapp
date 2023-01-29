@@ -267,12 +267,12 @@ img:not(.special):not(#userSettings img):not(#nav #navHeader img):not(.message i
 }
 
 .message{
-    max-width:45%;
+    max-width:65%;
     min-width: 10%;
     padding: 15px 30px;
     margin-bottom:10px;
-    word-wrap: break-word;
-    word-break: normal;
+    word-break: break-all;
+    white-space: normal;
     border-radius: 10px;
 }
 
@@ -292,13 +292,33 @@ img:not(.special):not(#userSettings img):not(#nav #navHeader img):not(.message i
     align-self: flex-start;
 }
 
-.message img{
+.message img:not(.profilePic){
     padding: 12px 0;
     width: 100%;
-    max-width: 300px;
+    max-width: 250px;
     aspect-ratio: 1/1!important;
     object-fit: contain;
-    
+}
+
+.profilePic{
+    width: 45px!important;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
+/* /* Firefox-specific CSS styles */
+@supports (-moz-appearance:none) {
+    audio {
+        width: 90%;
+        border-radius: 20px;
+    }
+  }
+
+.bi-mic-fill{
+    bottom: 0;
+    left: 47%;
+    color: black;
+    font-size: 20px;
 }
 
 /* dropDown menu */

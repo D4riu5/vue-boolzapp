@@ -6,6 +6,7 @@
       return {
         image: '',
         hideMe: false,
+        blockChat: false,
         recordingStarted: false,
         recordingStopped: false,
         recordings: [],
@@ -369,6 +370,10 @@
         this.contacts[activeChat].messages[msgIndex].voiceMsg = null;
       },
 
+      removePictureMessage(activeChat, msgIndex){
+        this.contacts[activeChat].messages[msgIndex].image = null;
+      },
+
       getLocalTime(){
 
         let date = new Date();
@@ -482,7 +487,9 @@
       
       startRecording() {
         this.mediaRecorder.start();
+        this.newInput = '';
         this.recordingStarted = true;
+        this.blockChat = true;
       },
 
       stopRecording() {
@@ -490,6 +497,10 @@
         this.recordingStopped = true;
       },
       
+      unblockChat(){
+        this.blockChat = false;
+      },
+
       // cant get this to work
       // cancelRecording(){
       //   this.audioBlob = null;
