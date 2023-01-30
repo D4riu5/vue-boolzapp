@@ -139,7 +139,7 @@
                     <!---------- navHeader End---------->
                 
                     <!---------- Notifications "pop-up" Start---------->
-                    <div id="notifications" class="d-flex align-items-center p-2 g-2">
+                <div v-if="notifications" id="notifications" class="d-flex align-items-center p-2 g-2 position-relative">
                         <div id="notificationsCircle" class="d-flex justify-content-center align-items-center bg-white rounded-circle">
                             <i style="color: rgb(252, 136, 58);" class="fa-solid fa-bell-slash fs-5"></i>
                         </div>
@@ -147,6 +147,7 @@
                             <p id="special-p" class="my_nopadding">Get new messages notifications!</p>
                             <a id="my-link" href="#nogo">Enable desktop notifications</a>
                         </div>
+                        <i @click="notifications = false" id="closeNotifications" class="fa-solid fa-circle-xmark fs-5 position-absolute top-50 end-0 translate-middle-y p-2"></i>
                     </div>
                     <!---------- Notifications "pop-up" End---------->
                 
@@ -162,7 +163,7 @@
                     <!---------- searchBar End---------->
                 
                     <!---------- contacts Start---------->
-                    <div id="myContacts" class="">
+                    <div id="myContacts" :class="{'updated': !notifications, 'notUpdated' : notifications}">
                         <template v-for="(contact, index) in contacts">
                             <div v-if="contact.visible" v-on:click="setActiveContact(index)" :class="(activeContact === index ? 'active' : '')" class="p-2 d-flex border-bottom border-top border-dark-subtle contact-card">
                                 <img class="rounded-circle my-2" :src="'img/avatar' + contact.avatar + '.jpg'" :alt="contact.name">

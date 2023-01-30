@@ -93,9 +93,14 @@
     height: 50px;
 }
 
-#nav #myContacts{
+#myContacts.notUpdated{
     /*  100% - #searchBar - #notifications - #navHeader  */
     height: calc(100% - 50px - 60px - 55px);
+    overflow-y: scroll;
+}
+
+#myContacts.updated{
+    height: calc(100% - 50px - 55px)!important;
     overflow-y: scroll;
 }
 
@@ -224,9 +229,14 @@ img:not(.special):not(#userSettings img):not(#nav #navHeader img):not(.message i
 #closeEmojis,
 #closeStickers,
 #closeGifs,
-#uploadAvatar{
+#uploadAvatar,
+#closeNotifications{
     cursor: pointer;
     transition: 0.3s;
+}
+
+#closeNotifications{
+    color: #6c757d;
 }
 
 #voiceRecord:hover,
@@ -248,10 +258,10 @@ img:not(.special):not(#userSettings img):not(#nav #navHeader img):not(.message i
     color: rgb(252, 136, 58);
 }
 
-
-#uploadAvatarText{
-    
+#closeNotifications:hover{
+    color: #e1dede;
 }
+
 
 #voiceSend{
     margin-left: 19px!important;

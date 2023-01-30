@@ -4,6 +4,7 @@
   createApp({
     data() {
       return {
+        notifications: true,
         image: '',
         hideMe: false,
         blockChat: false,

@@ -24,6 +24,7 @@ BONUSES implemented:
 - Added stickers. Sticker tab can be selected from emoji tab.
 - Added gifs. Gif tab can be selected from emoji tab.
 - Added Escape button functionability: press ESC to go back to homepage, close modals, close emoji/sticker/gif tabs. 
+- Can now close the notifications section.
 - Added voice messages:  
   - webpage asks for mic permission on page access. 
   - recording starts when the microphone icon is pressed.

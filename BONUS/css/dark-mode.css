@@ -170,6 +170,9 @@
     color: #088763;
 }
 
+.dark #closeNotifications{
+    color: #202c33;
+}
 
 /* ON HOVER */
 .dark .contact-card:hover:not(.active){
@@ -195,7 +198,9 @@
     color: #42cba5;
 }
 
-
+.dark #closeNotifications:hover{
+    color: black;
+}
 
 
 
